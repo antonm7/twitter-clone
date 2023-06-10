@@ -1,0 +1,10 @@
+#tab_wrapper {
+    &:hover {
+        background-color: var(--hover-on-container);
+    }
+    
+}
+
+.active {
+    color: var(--sub-color);
+}

@@ -1,0 +1,22 @@
+#wrapper {
+    background-color: var(--background-color);
+    transform: translateY(-35%);
+}
+
+#hr {
+    background-color: var(--sub-color);
+    height: 0.08px;
+    max-width: 100%;
+    margin-top: 0.1rem;
+}
+
+#top_hover_effect {
+    border-top-left-radius: 0.75rem;
+    border-top-right-radius: 0.75rem;
+}
+
+.hover_effect {
+    &:hover {
+        background-color: var(--hover-on-container);
+    }
+}
