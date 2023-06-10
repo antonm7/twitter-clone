@@ -8,17 +8,13 @@ import { ActiveProfile, Profile } from "./Icons/Profile";
 import { More } from "./Icons/More";
 import { Twitter } from "./Icons/Twitter";
 import MoreSettings from "./MoreSettings";
+import TwitterIcon from "./TwitterIcon";
 
 export default function Menu() {
     return (
         <div className="h-full w-full max-w-[650px] flex flex-col items-end">
            <div className="mr-16">
-                <Tab 
-                    title=''
-                    to={'/home'}
-                    Icon={<Twitter />}
-                    ActiveIcon={<Twitter />}
-                /> 
+                <TwitterIcon />
                 <Tab 
                     title='Home'
                     to={'/home'}

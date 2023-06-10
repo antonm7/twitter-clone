@@ -24,7 +24,7 @@ export default function RoutingTabs(props:Props) {
         >
             <h3 className={`${!active ? styles.active : '' } font-bold text-sm`}>{title}</h3>
             {active ? 
-                <div className='absolute bg-twitter-blue w-12 h-1 rounded-lg bottom-1' />
+                <div className='absolute bg-twitter-blue w-12 h-1 rounded-lg bottom-0' />
             : null}
             
         </div>

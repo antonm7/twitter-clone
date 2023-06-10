@@ -13,9 +13,10 @@ export default function TextArea() {
 
       return (
             <textarea 
-                className='w-full'
+                className='w-full pt-4 text-xl'
                 id={styles.textarea}
                 ref={textareaRef}
+                placeholder="What is happening?!"
             />
       )
 

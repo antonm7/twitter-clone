@@ -21,7 +21,7 @@ export default function RootLayout({
       <body className={`h-screen ${inter.className} flex responsive_padding`}>
         <HiddenLayer />
         <Menu />
-        <div className='max-w-[650px] min-w-[650px] w-full border-l-2 border-r-2 border-gray-500'>
+        <div className='max-w-[650px] min-w-[650px] w-full border_left border_right'>
           {children}
         </div>
         <ForYou />
