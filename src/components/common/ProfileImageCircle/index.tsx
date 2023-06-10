@@ -1,6 +1,6 @@
-import NoProfileImage from "../NoProfileImage";
+import NoProfileImage from "./NoProfileImage";
 
-export default function ProfileImageCircle() {
+export function RegularProfileImageCircle() {
     return (
         <div className="relative w-10 h-10 rounded-full">
             <NoProfileImage />

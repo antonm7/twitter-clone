@@ -1,14 +1,14 @@
 import TextArea from "@/components/Pages/Home/CreateTweet/TextArea";
 import BottomTab from "./BottomTab";
 import Hr from "@/components/common/Hr";
-import ProfileImageCircle from "@/components/common/ProfileImageCircle";
+import {RegularProfileImageCircle} from "@/components/common/ProfileImageCircle";
 
 export default function CreateTweet() {
 
     return (
         <div className="w-full min-h-fit flex border_bottom">
             <div className="w-20 h-auto flex justify-center pt-3">
-                <ProfileImageCircle />
+                <RegularProfileImageCircle />
             </div>
             <div className="w-full pr-8">
                <TextArea />

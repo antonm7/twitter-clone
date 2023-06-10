@@ -1,0 +1,44 @@
+#comment {
+    &:hover {
+        background-color: #1C3345;
+        svg {
+            color: #1D93E3;
+        }
+    }
+}
+
+#retweet {
+    &:hover {
+        background-color: #19363A;
+        svg {
+            color: #02B076;
+        }
+    }
+}
+
+#like {
+    &:hover {
+        background-color: #32253A;
+        svg {
+            color: #E61979;
+        }
+    }
+}
+
+#chart {
+    &:hover {
+        background-color: #1C3345;
+        svg {
+            color: #1D93E3;
+        }
+    }
+}
+
+#share {
+    &:hover {
+        background-color: #1C3345;
+        svg {
+            color: #1D93E3;
+        }
+    }
+}
