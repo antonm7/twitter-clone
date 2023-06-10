@@ -15,15 +15,14 @@ export default function MoreSettings() {
     }
 
     useEffect(() => {
-        if(!hiddenLayerStore.visibility) {
-            setActive(false)
-        }
+        if(!hiddenLayerStore.visibility) setActive(false)
     },[hiddenLayerStore.visibility])
 
     return (
         <div 
             onClick={() => turnOnActive()} 
-            className="relative flex items-center pl-4 pr-6 py-4 my-4 w-min rounded-3xl"
+            className="relative flex 
+            items-center pl-4 pr-6 py-4 my-4 w-min rounded-3xl"
             id={styles.tab_wrapper}
         >
             <More />
