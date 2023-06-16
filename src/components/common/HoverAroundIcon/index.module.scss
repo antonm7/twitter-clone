@@ -1,0 +1,9 @@
+#wrapper {
+    &:hover {
+        background-color: #1C3345;
+        
+        svg,span {
+            color: #1D93E3;
+        }
+    }
+}
