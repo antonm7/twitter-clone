@@ -1,10 +1,10 @@
-import { HeartIcon } from "../icons";
+import { HeartIcon } from "@/components/common/Icons/Actions";
 import styles from './index.module.scss';
 export function Like() {
     return (
-        <div className={`flex items-center`}>
+        <div id={styles.like_container} className={`cursor-pointer flex items-center`}>
             <HeartIcon id={styles.like}/>
-            <span className="sub_text text-sm pl-3">4</span>
+            <span className={`sub_text text-sm pl-3`}>4</span>
         </div>
     )
 }
