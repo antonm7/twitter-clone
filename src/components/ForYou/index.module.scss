@@ -2,17 +2,12 @@
     background-color: var(--columns-bg);
 }
 
-#tab_wrapper {
-    &:hover {
-        background-color: var(--hover-on-container);
-    }
-}
-
 #sub_title {
     color: var(--sub-color);
 }
 
-.settings_icon {
-    
+.bottom {
+    border-bottom-left-radius: 0.75rem;
+    border-bottom-right-radius: 0.75rem; 
 }
 
