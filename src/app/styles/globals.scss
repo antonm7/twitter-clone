@@ -6,6 +6,7 @@
   --background-color:white;
   --text-color:black;
   --sub-color:#8B98A5;
+  --sub-columns-bg:#273340;
   --columns-bg:#F7F9F9;
   --hover-on-container:#2C3640;  
   --border-color:#27333D;          
@@ -14,6 +15,7 @@
 .dark-theme {
   --background-color:#15202B;
   --text-color:white;
+  --sub-columns-bg:#273340;
   --columns-bg:#1E2732;
   --hover-on-container:#2C3640;
   --sub-color:#8B98A5;
@@ -25,6 +27,7 @@
     --background-color:#15202B;
     --text-color:white;
     --columns-bg:#1E2732;
+    --sub-columns-bg:#273340;
     --hover-on-container:#2C3640;
     --sub-color:#8B98A5;
     --border-color:#27333D;
@@ -54,4 +57,21 @@ body {
 
 .border_bottom {
   border-bottom: 0.12rem solid var(--border-color);
+}
+
+.hover_effect {
+  transition: background-color 0.3s ease;
+  &:hover {
+      background-color: var(--hover-on-container);
+  }
+}
+
+.hover_effect_light {
+  &:hover {
+    background-color:#1E2731;
+  }
+}
+
+.hover_effect_transition {
+  transition: background-color 0.3s ease;
 }
