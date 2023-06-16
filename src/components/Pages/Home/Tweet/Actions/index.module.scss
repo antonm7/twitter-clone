@@ -1,34 +1,42 @@
-#comment {
+#comments_container {
     &:hover {
-        background-color: #1C3345;
-        svg {
+        #comment {
+            background-color: #1C3345;
+        }
+        svg,span {
             color: #1D93E3;
         }
     }
 }
 
-#retweet {
+#retweet_container {
     &:hover {
-        background-color: #19363A;
-        svg {
+        #retweet {
+            background-color: #19363A;
+        }
+        svg,span {
             color: #02B076;
         }
     }
 }
 
-#like {
+#like_container {
     &:hover {
-        background-color: #32253A;
-        svg {
+        #like {
+            background-color: #32253A;
+        }
+        svg,span {
             color: #E61979;
         }
     }
 }
 
-#chart {
+#chart_container {
     &:hover {
-        background-color: #1C3345;
-        svg {
+        #chart {
+            background-color: #1C3345;
+        }
+        svg,span{
             color: #1D93E3;
         }
     }
@@ -37,7 +45,7 @@
 #share {
     &:hover {
         background-color: #1C3345;
-        svg {
+        svg,span {
             color: #1D93E3;
         }
     }
