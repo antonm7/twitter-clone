@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google'
 import './styles/globals.scss';
 import ForYou from '@/components/ForYou';
 import HiddenLayer from '@/components/common/HiddenLayer';
+import SearchBar from '@/components/SearchBar';
 
 const inter = Inter({ subsets: ['latin'],weight:['400','500','700'] })
 
@@ -18,13 +19,16 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`h-screen ${inter.className} flex responsive_padding`}>
+      <body className={`h-screen ${inter.className} flex`}>
         <HiddenLayer />
         <Menu />
         <div className='max-w-[650px] min-w-[650px] w-full border_left border_right'>
           {children}
         </div>
-        <ForYou />
+        <div className='max-w-sm w-full m-4 mt-2 ml-8 pr-16'>
+          <SearchBar />
+          <ForYou />
+        </div>
       </body>
     </html>
   )
