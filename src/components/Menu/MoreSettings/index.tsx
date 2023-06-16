@@ -22,7 +22,7 @@ export default function MoreSettings() {
         <div 
             onClick={() => turnOnActive()} 
             className="relative flex 
-            items-center pl-4 pr-6 py-4 my-4 w-min rounded-3xl"
+            items-center pr-6 py-4 my-4 pl-4 w-min rounded-3xl hover_effect hover_effect_transition"
             id={styles.tab_wrapper}
         >
             <More />
