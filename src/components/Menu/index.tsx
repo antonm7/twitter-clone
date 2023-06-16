@@ -5,15 +5,16 @@ import { ActiveNotifications,Notifications } from "./Icons/Notifications";
 import { ActiveMessages, Messages } from "./Icons/Messages";
 import { ActiveBookmark, Bookmark } from "./Icons/Bookmark";
 import { ActiveProfile, Profile } from "./Icons/Profile";
-import { More } from "./Icons/More";
-import { Twitter } from "./Icons/Twitter";
 import MoreSettings from "./MoreSettings";
 import TwitterIcon from "./TwitterIcon";
+import User from "./User";
+import StyledButton from "../common/StyledButton";
 
 export default function Menu() {
     return (
         <div className="h-full w-full max-w-[650px] flex flex-col items-end">
-           <div className="mr-16">
+           <div className="h-full flex flex-col justify-between ml-8 mr-2">
+            <div className="pr-12">
                 <TwitterIcon />
                 <Tab 
                     title='Home'
@@ -52,6 +53,9 @@ export default function Menu() {
                     ActiveIcon={<ActiveProfile />}
                 /> 
                 <MoreSettings  />
+                <StyledButton lgText={true} height={"3.3rem"} width="100%" title={"Tweet"}/>
+            </div>
+                <User />
            </div> 
         </div>
     )
