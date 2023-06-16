@@ -4,7 +4,7 @@ import styles from './index.module.scss';
 export default function Header() {
     return (
         <div className="w-full border_bottom" id={styles.bg}>
-            <h1 className='font-bold text-2xl px-4 pt-5 pb-2'>Home</h1>
+            <h1 className='font-bold text-2xl px-4 pt-4 pb-2'>Home</h1>
             <div className='flex'>
                 <RoutingTabs 
                     title={'For you'} 
