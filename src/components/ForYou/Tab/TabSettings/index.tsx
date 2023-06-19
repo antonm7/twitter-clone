@@ -16,10 +16,10 @@ const DropDownLine = ({title}:DropDownLineProps):JSX.Element => {
     )
 }
 
-export default function UserSettings({active}:Props) {
+export default function TabSettings({active}:Props) {
     if(!active) return null
     return (
-        <div className="py-4 rounded-xl absolute w-64 h-min z-50 tab_border" id={styles.wrapper}>
+        <div className="py-4 rounded-xl absolute w-64 h-min tab_border z-50" id={styles.wrapper}>
             <DropDownLine title={"Add an existing account"}/>
             <DropDownLine title={"Log out"}/>
         </div>
