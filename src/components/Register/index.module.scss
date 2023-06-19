@@ -1,0 +1,9 @@
+.container {
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    height: 36rem;
+    width: 36rem;
+    background-color: var(--sub-columns-bg);
+    z-index: 999;
+}

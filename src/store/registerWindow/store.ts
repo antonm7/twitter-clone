@@ -5,7 +5,7 @@ type State = {
     changeVisibility: (value:boolean) => void
 }
 
-export const useHiddenLayerStore = create<State>(set => ({
+export const useRegisterWindowState = create<State>(set => ({
     visibility:false,
     changeVisibility: (value:boolean) => set({visibility:value})
 }))
