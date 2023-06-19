@@ -2,14 +2,18 @@
 import styles from './index.module.scss';
 import { HiDotsHorizontal } from "react-icons/hi";
 
-export function SettingsWithBackground () {
+type Props = {
+    onClick?:() => void
+}
+
+export function SettingsWithBackground ({onClick}:Props) {
     return (
-        <div id={styles.wrapper} className='h-8 w-8 flex items-center justify-center rounded-full'>
+        <div onClick={onClick} id={styles.wrapper} className='h-8 w-8 flex items-center justify-center rounded-full'>
             <HiDotsHorizontal id={styles.icon} className='text-base sub_text'/>
         </div>
     )
 }
 
-export function SettingsIcon() {
-    return <HiDotsHorizontal className='text-base sub_text'/>
+export function SettingsIcon({onClick}:Props) {
+    return <HiDotsHorizontal onClick={onClick} className='text-base sub_text'/>
 }
