@@ -1,11 +1,15 @@
 import {create} from 'zustand';
 
 type State = {
-    visibility:boolean
-    changeVisibility: (value:boolean) => void
+    loginVisibility:boolean
+    signupVisibility:boolean
+    changeLoginVisibility: (value:boolean) => void
+    changeSignupVisibility: (value:boolean) => void
 }
 
 export const useRegisterWindowState = create<State>(set => ({
-    visibility:false,
-    changeVisibility: (value:boolean) => set({visibility:value})
+    loginVisibility:false,
+    signupVisibility:false,
+    changeLoginVisibility: (value:boolean) => set({loginVisibility:value}),
+    changeSignupVisibility: (value:boolean) => set({loginVisibility:value})
 }))

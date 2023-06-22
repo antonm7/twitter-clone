@@ -2,8 +2,13 @@
     left: 50%;
     top: 50%;
     transform: translate(-50%,-50%);
-    height: 36rem;
+    height: 40rem;
     width: 36rem;
     background-color: var(--sub-columns-bg);
     z-index: 999;
+    border-radius: 0.8rem;
+}
+
+.styled_input {
+    border: 1px solid var(--sub-color);
 }
