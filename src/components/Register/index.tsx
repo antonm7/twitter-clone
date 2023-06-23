@@ -4,6 +4,7 @@ import { useHiddenLayerStore } from "@/store/HiddenLayer"
 import { useRegisterWindowState } from "@/store/registerWindow"
 import { useEffect } from "react"
 import Login from "./Login"
+import Signup from "./Signup";
 
 export default function Register() {
     const loginVisibility = useRegisterWindowState(state => state.loginVisibility)
@@ -15,14 +16,13 @@ export default function Register() {
             changeHiddenLayerVisibility(false)
         } else {
             changeHiddenLayerVisibility(true)
-
         }
     },[loginVisibility,signupVisibility])
     
 
-    if(loginVisibility) return <Login />
+    if(loginVisibility) return <Signup />
 
-    if(signupVisibility) return <Login />
+    if(signupVisibility) return <Signup />
 
     return null
 }
