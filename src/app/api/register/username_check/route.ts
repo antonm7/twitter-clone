@@ -18,6 +18,6 @@ export async function GET(req:NextApiRequest, res:NextApiResponse) {
         
     } catch(e) {
         console.error('Unexpected Error', e)
-        return res.status(500).send({})
+        NextResponse.error()
     }
 }

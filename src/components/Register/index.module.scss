@@ -4,11 +4,23 @@
     transform: translate(-50%,-50%);
     height: 40rem;
     width: 36rem;
-    background-color: var(--sub-columns-bg);
+    background-color: var(--background-color);
     z-index: 999;
     border-radius: 0.8rem;
 }
 
 .styled_input {
     border: 1px solid var(--sub-color);
+}
+
+.error {
+    border-color: rgb(220 38 38);
+}
+
+.success {
+    border-color: rgba(8, 179, 53, 0.777);
+}
+
+#xMark {
+    font-size: 2rem;
 }

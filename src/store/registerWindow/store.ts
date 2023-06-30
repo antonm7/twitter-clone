@@ -11,5 +11,5 @@ export const useRegisterWindowState = create<State>(set => ({
     loginVisibility:false,
     signupVisibility:false,
     changeLoginVisibility: (value:boolean) => set({loginVisibility:value}),
-    changeSignupVisibility: (value:boolean) => set({loginVisibility:value})
+    changeSignupVisibility: (value:boolean) => set({signupVisibility:value})
 }))

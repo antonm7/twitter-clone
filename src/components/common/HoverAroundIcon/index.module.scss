@@ -1,9 +1,17 @@
 #wrapper {
     &:hover {
         background-color: #1C3345;
-        
         svg,span {
             color: #1D93E3;
+        }
+    }
+}
+
+#white_wrapper {
+    &:hover {
+        background-color: var(--icon_bg);
+        svg,span {
+            color: var(--icon_color);
         }
     }
 }

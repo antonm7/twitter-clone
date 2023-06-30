@@ -19,8 +19,7 @@ export default function Register() {
         }
     },[loginVisibility,signupVisibility])
     
-
-    if(loginVisibility) return <Signup />
+    if(loginVisibility) return <Login />
 
     if(signupVisibility) return <Signup />
 
