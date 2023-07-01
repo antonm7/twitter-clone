@@ -4,7 +4,6 @@ import './styles/globals.scss';
 import ForYou from '@/components/ForYou';
 import HiddenLayer from '@/components/common/HiddenLayer';
 import SearchBar from '@/components/SearchBar';
-import Login from '@/components/Register/Login';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import NotAuthenticated from '@/components/Menu/NotAuthenticated';
@@ -30,7 +29,7 @@ export default async function RootLayout({
       <body className={`h-screen ${inter.className} flex`}>
         <HiddenLayer />
         <Register />
-        <RegisterBar />
+        {!session?.user ? <RegisterBar /> : null}
         {!session?.user ? <NotAuthenticated /> : <Menu />}
         <div className='max-w-[650px] min-w-[650px] w-full border_left border_right'>
           {children}
