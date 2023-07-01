@@ -2,10 +2,15 @@ import {create} from 'zustand';
 
 type State = {
     visibility:boolean
-    changeVisibility: (value:boolean) => void
+    background:boolean
+    changeVisibility: (value:boolean,bg?:boolean) => void
 }
 
 export const useHiddenLayerStore = create<State>(set => ({
     visibility:false,
-    changeVisibility: (value:boolean) => set({visibility:value})
+    background:false,
+    changeVisibility: (value:boolean,bg?:boolean) => set({
+        visibility:value,
+        background:bg || false
+    })
 }))
