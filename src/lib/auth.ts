@@ -6,9 +6,10 @@ import {compare} from 'bcrypt'
 import { type FullUserDocument, type UserSession } from './types/user'
 
 export const authOptions:NextAuthOptions = {
+    secret:process.env.NEXTAUTH_SECRET,
     session: {
         strategy: 'jwt'
-      },
+    },
     providers: [
         CredentialsProviders({
             async authorize(credentials):Promise<any>  {
@@ -29,8 +30,7 @@ export const authOptions:NextAuthOptions = {
                     return {
                         _id:results._id,
                         email:results.email,
-                        first_name:results.first_name,
-                        second_name:results.second_name,
+                        name:results.name,
                         username:results.username
                     }
                 }

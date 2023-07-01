@@ -108,7 +108,7 @@ export default function Signup() {
                     onClick={() => navigate_next_screen()}
                     className={`${validEmail === 'valid' ? 'bg-white' : 'bg-gray-300'} w-full h-10 bg-transparent bg-white text-black font-bold rounded-3xl text-sm mt-4`} 
                     id={styles.login}>
-                        Login
+                        Continue
                     </button>
             </div>
         </div>
