@@ -1,5 +1,5 @@
 import NextAuth from 'next-auth'
-import type { Awaitable, NextAuthOptions, RequestInternal, User } from 'next-auth'
+import type { Awaitable, DefaultSession, NextAuthOptions, RequestInternal, User,DefaultUser } from 'next-auth'
 import CredentialsProviders from 'next-auth/providers/credentials'
 import { connectToDatabase } from './mongodb'
 import {compare} from 'bcrypt'
@@ -9,6 +9,26 @@ export const authOptions:NextAuthOptions = {
     secret:process.env.NEXTAUTH_SECRET,
     session: {
         strategy: 'jwt'
+    },
+    callbacks: {
+        jwt({token, user}) {
+            if(user) {
+                token.email = user.email;
+                token.name = user.name;
+                token.username = user.username;
+                token._id = user._id;
+            }
+            return token
+        },
+          session({session, token}) {
+            session.user = {
+                name:token.name,
+                email:token.email,
+                username:token.username,
+                _id:token._id
+            }
+            return session
+        }
     },
     providers: [
         CredentialsProviders({
