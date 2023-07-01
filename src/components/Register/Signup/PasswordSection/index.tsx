@@ -45,7 +45,7 @@ export default function PasswordSection({email, name,active,username}:Props) {
                 alert(data.error)
             } else {
                 const singIn_data = await signIn('credentials',{
-                    redirect:false,
+                    redirect:true,
                     email,
                     password
                 })
