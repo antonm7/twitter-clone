@@ -9,8 +9,12 @@ import MoreSettings from "./MoreSettings";
 import TwitterIcon from "./TwitterIcon";
 import User from "./User";
 import StyledButton from "../common/StyledButton";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
 
-export default function Menu() {
+export default async function Menu() {
+    const session = await getServerSession(authOptions)
+
     return (
         <div className="h-full w-full max-w-[650px] flex flex-col items-end">
            <div className="h-full flex flex-col justify-between ml-8 mr-2">
@@ -55,7 +59,10 @@ export default function Menu() {
                 <MoreSettings  />
                 <StyledButton lgText={true} height={"3.3rem"} width="100%" title={"Tweet"}/>
             </div>
-                <User />
+                <User 
+                    name={session?.user.name as string}
+                    username={session?.user.username as string}
+                />
            </div> 
         </div>
     )
