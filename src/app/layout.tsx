@@ -9,6 +9,7 @@ import { authOptions } from '@/lib/auth';
 import NotAuthenticated from '@/components/Menu/NotAuthenticated';
 import RegisterBar from '@/components/RegisterBar';
 import Register from '@/components/Register';
+import { NextAuthProvider } from './providers';
 
 const inter = Inter({ subsets: ['latin'],weight:['400','500','700'] })
 
@@ -27,17 +28,19 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={`h-screen ${inter.className} flex`}>
-        <HiddenLayer />
-        <Register />
-        {!session?.user ? <RegisterBar /> : null}
-        {!session?.user ? <NotAuthenticated /> : <Menu />}
-        <div className='max-w-[650px] min-w-[650px] w-full border_left border_right'>
-          {children}
-        </div>
-        <div className='max-w-sm w-full m-4 mt-2 ml-8 pr-16'>
-          <SearchBar />
-          <ForYou />
-        </div>
+        <NextAuthProvider>
+          <HiddenLayer />
+          <Register />
+          {!session?.user ? <RegisterBar /> : null}
+          {!session?.user ? <NotAuthenticated /> : <Menu />}
+          <div className='max-w-[650px] min-w-[650px] w-full border_left border_right'>
+            {children}
+          </div>
+          <div className='max-w-sm w-full m-4 mt-2 ml-8 pr-16'>
+            <SearchBar />
+            <ForYou />
+          </div>
+        </NextAuthProvider>
       </body>
     </html>
   )
