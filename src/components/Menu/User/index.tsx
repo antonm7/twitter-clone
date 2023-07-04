@@ -26,7 +26,6 @@ export default function User({name, username}:Props) {
         if(!hiddenLayerStore.visibility) setActive(false)
     },[hiddenLayerStore.visibility])
 
-
     return (
         <div onClick={() => turnOnActive()} className="flex w-full justify-between flex-nowrap mb-4 items-center p-4 py-2 rounded-3xl hover_effect hover_effect_transition ">
             <div className="flex">
