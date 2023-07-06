@@ -52,7 +52,7 @@ export default async function Menu() {
                 /> 
                 <Tab 
                     title='Profile'
-                    to={'/profile'}
+                    to={`/profile/${session?.user.username}`}
                     Icon={<Profile />}
                     ActiveIcon={<ActiveProfile />}
                 /> 
