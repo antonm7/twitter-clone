@@ -1,5 +1,9 @@
 import { FaUser } from "react-icons/fa"
 
-export default function Icon() {
-    return <FaUser className="text-3xl"/>
+type Props = {
+    size?:'sm' | 'lg'
+}
+
+export default function Icon({size}:Props) {
+    return <FaUser className={`${size === 'lg' ? 'text-8xl' : 'text-3xl'}`}/>
 }
