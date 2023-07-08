@@ -1,4 +1,4 @@
-import StyledButton from "@/components/common/StyledButton";
+import {StyledButtonBlue} from "@/components/common/StyledButton";
 import {Calendar, Emoji, Gallery, Gif, Gps, List} from "./icons";
 import HoverAroundIcon from "@/components/common/HoverAroundIcon";
 
@@ -25,7 +25,7 @@ export default function BottomTab() {
                     <Gps />
                 </HoverAroundIcon>
             </div>
-            <StyledButton title={'Tweet'} height={'2.4rem'}/>
+            <StyledButtonBlue title={'Tweet'} height={'2.4rem'}/>
         </div>
     )
 }
