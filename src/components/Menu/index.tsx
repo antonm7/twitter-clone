@@ -8,7 +8,7 @@ import { ActiveProfile, Profile } from "./Icons/Profile";
 import MoreSettings from "./MoreSettings";
 import TwitterIcon from "./TwitterIcon";
 import User from "./User";
-import StyledButton from "../common/StyledButton";
+import {StyledButtonBlue} from "../common/StyledButton";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 
@@ -57,7 +57,7 @@ export default async function Menu() {
                     ActiveIcon={<ActiveProfile />}
                 /> 
                 <MoreSettings  />
-                <StyledButton lgText={true} height={"3.3rem"} width="100%" title={"Tweet"}/>
+                <StyledButtonBlue lgText={true} height={"3.3rem"} width="100%" title={"Tweet"}/>
             </div>
                 <User 
                     name={session?.user.name as string}
