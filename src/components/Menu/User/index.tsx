@@ -2,10 +2,9 @@
 import { RegularProfileImageCircle } from "@/components/common/ProfileImageCircle";
 import styles from '../index.module.scss';
 import { SettingsIcon } from "@/components/common/Icons/Settings";
-import UserSettings from "./UserSettings";
-import { useEffect, useState } from "react";
-import { useHiddenLayerStore } from "@/store/HiddenLayer";
-import { useSession } from "next-auth/react";
+import { useState } from "react";
+import { TurnOnHiddenLayerWrapper } from "@/components/common/TurnOnHiddenLayerWrapper";
+import { Line, OptionsWindow } from "@/components/common/OptionsWindow";
 
 interface Props {
     name:string
@@ -13,21 +12,12 @@ interface Props {
 }
 
 export default function User({name, username}:Props) {
-    const hiddenLayerStore = useHiddenLayerStore(state => state)
     const [active, setActive] = useState<boolean>(false)
-    const session = useSession()
-
-    const turnOnActive = () => {
-        setActive(true)
-        hiddenLayerStore.changeVisibility(true)
-    }
-
-    useEffect(() => {
-        if(!hiddenLayerStore.visibility) setActive(false)
-    },[hiddenLayerStore.visibility])
 
     return (
-        <div onClick={() => turnOnActive()} className="flex w-full justify-between flex-nowrap mb-4 items-center p-4 py-2 rounded-3xl hover_effect hover_effect_transition ">
+        <TurnOnHiddenLayerWrapper 
+        className="flex w-full justify-between flex-nowrap mb-4 items-center p-4 py-2 rounded-3xl hover_effect hover_effect_transition "
+            onActive={value => setActive(value)}>
             <div className="flex">
                 <RegularProfileImageCircle />
                 <div className="pl-4">
@@ -36,7 +26,10 @@ export default function User({name, username}:Props) {
                 </div>
             </div>
             <SettingsIcon />
-            <UserSettings active={active}/>
-        </div>
+            <OptionsWindow width="17rem" translateY="-65%" translateX="35%" active={active}>
+                <Line title={"Add an existing account"}/>
+                <Line title={"Log out"}/>
+            </OptionsWindow>
+        </TurnOnHiddenLayerWrapper>
     )
 }
