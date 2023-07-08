@@ -4,6 +4,7 @@ import { HiDotsHorizontal } from "react-icons/hi";
 
 type Props = {
     onClick?:() => void
+    color?:'white'
 }
 
 export function SettingsWithBackground ({onClick}:Props) {
@@ -14,6 +15,6 @@ export function SettingsWithBackground ({onClick}:Props) {
     )
 }
 
-export function SettingsIcon({onClick}:Props) {
-    return <HiDotsHorizontal onClick={onClick} className='text-base sub_text'/>
+export function SettingsIcon({onClick,color}:Props) {
+    return <HiDotsHorizontal onClick={onClick} className={`text-base ${color === 'white' ? 'text-white' : 'sub_text'}`}/>
 }
