@@ -2,8 +2,12 @@
 import { useRef } from "react";
 import styles from './index.module.scss';
 
+type Props = {
+    onChange:(text:string) => void
+}
 
-export default function TextArea() {
+
+export default function TextArea({onChange}:Props) {
     const textareaRef = useRef<any>(null)
 
     textareaRef?.current?.addEventListener('input', () => {
@@ -17,6 +21,7 @@ export default function TextArea() {
                 id={styles.textarea}
                 ref={textareaRef}
                 placeholder="What is happening?!"
+                onChange={e => onChange(e.target.value)}
             />
       )
 
