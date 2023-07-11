@@ -1,10 +1,10 @@
-'use client'
+'use client';
+
 import TextArea from "@/components/Pages/Home/CreateTweet/TextArea";
 import BottomTab from "./BottomTab";
 import {RegularProfileImageCircle} from "@/components/common/ProfileImageCircle";
 import { useState } from "react";
 import { useSession } from "next-auth/react";
-
 
 export default function CreateTweet() {
     const [text, setText] = useState<string>('')
@@ -19,8 +19,16 @@ export default function CreateTweet() {
                     text
                 })
             })
-        } catch(e) {
-
+            const response = await request.json()
+            if(response.ok) {
+                
+                console.log(response)
+            } else {
+                console.log(response)
+            }
+        } catch(e) { 
+            console.log('error',e)
+            throw new Error('Unexpected Error')
         }
     }
 
@@ -31,7 +39,7 @@ export default function CreateTweet() {
             </div>
             <div className="w-full pr-8">
                <TextArea onChange={value => setText(value)}/>
-               <BottomTab />
+               <BottomTab method={() => void post_tweet()}/>
             </div>
         </div>
     )
