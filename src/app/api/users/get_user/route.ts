@@ -6,7 +6,6 @@ import { NextResponse } from "next/server";
 
 export async function GET(req:NextApiRequest, res:NextApiResponse) {
     try {
-        console.log('request:',req)
         const parsed = url_parse(req.url as string)
         const username = parsed.username
 
@@ -18,7 +17,6 @@ export async function GET(req:NextApiRequest, res:NextApiResponse) {
             name:user?.name
         })
     } catch(e) {
-        console.log('dsadsao0-32o1,e',e)
         return NextResponse.error()
     }
 }
