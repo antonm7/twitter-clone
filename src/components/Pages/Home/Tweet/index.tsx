@@ -1,22 +1,31 @@
-import { RegularProfileImageCircle } from "@/components/common/ProfileImageCircle";
+import { ProfileImage, RegularProfileImageCircle } from "@/components/common/ProfileImageCircle";
 import { BottomBar } from "./BottomBar";
 import { SettingsWithBackground } from "@/components/common/Icons/Settings";
+import { type FullTweetData } from "@/lib/types/tweets";
 
-export default function Tweet() {
+export default function Tweet({
+    _id,
+    userId,
+    user_img,
+    user_name,
+    user_username,
+    text,
+    createdAt
+}:FullTweetData) {
     return (
         <div className="hover_effect_light hover_effect_transition flex border_bottom pt-2 pb-3 px-4">
-            <RegularProfileImageCircle />
-            <div className="px-3">
+            <ProfileImage />
+            <div className="ml-4 w-full">
                 <div className="flex justify-between items-center">
                     <div>
-                        <span className="text-base font-medium pr-1">Adam Wathan</span>
-                        <span className="text-sm sub_text pr-1">@adamwathan</span>
+                        <span className="text-base font-medium pr-1">{user_name}</span>
+                        <span className="text-sm sub_text pr-1">@{user_username}</span>
                         <span className="text-sm sub_text">- 4m</span>
                     </div>
                     <SettingsWithBackground />
                 </div>
                 <div className="text-md block">
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas obcaecati et quia.</p>
+                    <p>{text}</p>
                 </div>
                 <BottomBar />
             </div>
