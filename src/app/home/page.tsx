@@ -1,6 +1,5 @@
-import CreateTweet from "@/components/Pages/Home/CreateTweet";
 import Header from "@/components/Pages/Home/Header";
-import Tweet from "@/components/Pages/Home/Tweet";
+import TweetsSection from "@/components/Pages/Home/TweetsSection";
 import { authOptions } from "@/lib/auth";
 import { connectToDatabase } from "@/lib/mongodb";
 import { FullTweetData } from "@/lib/types/tweets";
@@ -29,10 +28,10 @@ async function get_tweets(userId:string):Promise<null | FullTweetData[]> {
             //   sorting by creation to get a timeline correctly
           { $sort: { createdAt: -1 } }
         ]).toArray();
-        
+
         return tweets as FullTweetData[];
     } catch(e) {
-        console.log('error on fetching tweets')
+        console.log('error on fetching tweets',e)
         return null
     }
 } 
@@ -41,24 +40,10 @@ export default async function Home() {
     const session = await getServerSession(authOptions)
     const tweets_data = await get_tweets(session?.user._id!)
 
-    console.log('tahts the tweets data:', tweets_data)
     return (
         <>
             <Header />
-            <CreateTweet />
-            {tweets_data?.map(tweet => (
-                <Tweet 
-                    _id={tweet._id}
-                    text={tweet.text} 
-                    likes={tweet.likes} 
-                    dislikes={tweet.dislikes} 
-                    retweets={tweet.retweets} 
-                    userId={tweet.userId} 
-                    createdAt={tweet.createdAt} 
-                    user_name={tweet.user_name} 
-                    user_username={tweet.user_username} 
-                    user_img={tweet.user_img} 
-                />))}
+            <TweetsSection tweets={tweets_data ? tweets_data : []}/>
         </>
     )
 }
