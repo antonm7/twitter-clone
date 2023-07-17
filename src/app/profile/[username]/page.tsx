@@ -26,13 +26,13 @@ export default async function Profile({params}:{params:{username:string}}) {
             <div className="w-full h-52 bg-gray-500" />
             <div className="px-6 relative">
                 <div className="absolute" id={styles.profile_image_wrapper}>
-                    <ProfileImage size="lg"/>
+                    <ProfileImage username={params.username} size="lg"/>
                 </div>
                 <div className="flex items-center justify-end pt-4">
                     <div className="pr-4">
                         <OptionsCircle />
                     </div>
-                   <StyledButtonWhite title="Follow"/>
+                   <StyledButtonWhite onClick={() => null} title="Follow"/>
                 </div>
             </div>
         </>
