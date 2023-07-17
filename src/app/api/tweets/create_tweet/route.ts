@@ -1,8 +1,8 @@
 import { connectToDatabase } from "@/lib/mongodb";
-import { InsertedTweet } from "@/lib/types/tweets";
+import { FullTweetData, InsertedTweet } from "@/lib/types/tweets";
 import { FullUserDocument } from "@/lib/types/user";
 import { ObjectId } from "mongodb";
-import { NextApiRequest, NextApiResponse } from "next";
+import { NextApiResponse } from "next";
 import { NextResponse } from "next/server";
 import { z } from 'zod';
 
@@ -46,8 +46,10 @@ export async function POST(req:Request,res:NextApiResponse) {
         const updated_user = await db.collection<FullUserDocument>('users')
         .updateOne({_id:new ObjectId(userId)},{$pull:{tweets:JSON.stringify(inserted_tweet.insertedId)}})
 
+        const inserted_tweet_data = await db.collection<FullTweetData>('tweets').findOne({_id: new ObjectId(inserted_tweet.insertedId)})
+
         if(updated_user.acknowledged) {
-            return NextResponse.json({ok:true},{status:201})
+            return NextResponse.json({ok:true,tweet:inserted_tweet_data},{status:201})
         } else {
             throw new Error('User did not updated')
         }
