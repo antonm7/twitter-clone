@@ -14,7 +14,7 @@ export default function Tweet({
 }:FullTweetData) {
     return (
         <div className="hover_effect_light hover_effect_transition flex border_bottom pt-2 pb-3 px-4">
-            <ProfileImage />
+            <ProfileImage username={user_username}/>
             <div className="ml-4 w-full">
                 <div className="flex justify-between items-center">
                     <div>

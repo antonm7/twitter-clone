@@ -5,5 +5,5 @@ type Props = {
 }
 
 export default function Icon({size}:Props) {
-    return <FaUser className={`${size === 'lg' ? 'text-8xl' : 'text-3xl'}`}/>
+    return <FaUser className={`${size === 'lg' ? 'text-6xl' : 'text-3xl'}`}/>
 }

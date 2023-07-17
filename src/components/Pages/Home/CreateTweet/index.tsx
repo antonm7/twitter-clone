@@ -5,8 +5,13 @@ import BottomTab from "./BottomTab";
 import {RegularProfileImageCircle} from "@/components/common/ProfileImageCircle";
 import { useState } from "react";
 import { useSession } from "next-auth/react";
+import { FullTweetData } from "@/lib/types/tweets";
 
-export default function CreateTweet() {
+type Props = {
+    insertedTweet:(newTweet:FullTweetData) => void
+}
+
+export default function CreateTweet({insertedTweet}:Props) {
     const [text, setText] = useState<string>('')
     const { data } = useSession()
 
@@ -21,8 +26,7 @@ export default function CreateTweet() {
             })
             const response = await request.json()
             if(response.ok) {
-                
-                console.log(response)
+                insertedTweet(response.tweet)
             } else {
                 console.log(response)
             }
