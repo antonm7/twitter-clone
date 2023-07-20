@@ -29,11 +29,12 @@ export function OptionsWindow({active,children,translateY,translateX,width}:Prop
 type LineProps = {
     title:string
     icon?:React.ReactNode
+    onClick?:() => void
 }
 
-export function Line({title,icon}:LineProps){
+export function Line({title,icon,onClick}:LineProps){
     return (
-        <div className={`cursor-pointer p-4 flex items-center hover_effect hover_effect_transition`}>
+        <div onClick={onClick} className={`cursor-pointer p-4 flex items-center hover_effect hover_effect_transition`}>
             {icon ? icon : null}
             <span className={`text-sm font-semibold ${icon ? 'pl-4' : ''}`}>{title}</span>
         </div>
