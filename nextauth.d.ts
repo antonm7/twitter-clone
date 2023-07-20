@@ -8,6 +8,7 @@ declare module "next-auth" {
       name:string;
       email:string;
       username:string;
+      image?:string;
     };
     expires: string
   }
@@ -18,6 +19,7 @@ declare module "next-auth" {
     username:string;
     name:string;
     email:string;
+    image?:string;
   }
 
   interface AdapterUser {
@@ -25,6 +27,7 @@ declare module "next-auth" {
     username:string;
     name:string;
     email:string;
+    image?:string;
   }
 
     interface DefaultUser {
@@ -32,6 +35,7 @@ declare module "next-auth" {
       username:string;
       name:string;
       email:string;
+      image?:string;
     }
   }
 
@@ -41,5 +45,6 @@ declare module "next-auth/jwt" {
       username:string;
       _id:string;
       email:string;
+      image?:string;
     }
 }
