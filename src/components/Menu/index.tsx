@@ -57,9 +57,10 @@ export default async function Menu() {
                     ActiveIcon={<ActiveProfile />}
                 /> 
                 <MoreSettings  />
-                <StyledButtonBlue lgText={true} height={"3.3rem"} width="100%" title={"Tweet"}/>
+                {/* <StyledButtonBlue lgText={true} height={"3.3rem"} width="100%" title={"Tweet"}/> */}
             </div>
                 <User 
+                    img={session?.user.image}
                     name={session?.user.name as string}
                     username={session?.user.username as string}
                 />

@@ -4,6 +4,8 @@ import { type FullTweetData } from "@/lib/types/tweets";
 import { useEffect, useState } from "react";
 import Tweet from "../Tweet";
 import CreateTweet from "../CreateTweet";
+import { useSession } from "next-auth/react";
+import { authOptions } from "@/lib/auth";
 
 type Props = {
     tweets:FullTweetData[]
@@ -11,10 +13,11 @@ type Props = {
 
 export default function TweetsSection({tweets}:Props) {
     const [tweetsList, setTweetsList] = useState<FullTweetData[]>(tweets)
-
+    const session = useSession()
     return (
         <div>
-            <CreateTweet insertedTweet={newTweet => setTweetsList([newTweet,...tweetsList])}/>
+            {session.status === 'authenticated' ? <CreateTweet insertedTweet={newTweet => setTweetsList([newTweet,...tweetsList])}/>
+            : null }
             {tweetsList?.map(tweet => (
                 <Tweet 
                     key={JSON.stringify(tweet._id)}

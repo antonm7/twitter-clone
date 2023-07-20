@@ -17,15 +17,26 @@ export const authOptions:NextAuthOptions = {
                 token.name = user.name;
                 token.username = user.username;
                 token._id = user._id;
+                token.image = user.image
             }
             return token
         },
           session({session, token}) {
-            session.user = {
-                name:token.name,
-                email:token.email,
-                username:token.username,
-                _id:token._id
+            if(token.picture) {
+                session.user = {
+                    name:token.name,
+                    email:token.email,
+                    username:token.username,
+                    _id:token._id,
+                    image:token.image
+                }
+            } else {
+                session.user = {
+                    name:token.name,
+                    email:token.email,
+                    username:token.username,
+                    _id:token._id
+                }
             }
             return session
         }
@@ -51,7 +62,8 @@ export const authOptions:NextAuthOptions = {
                         _id:results._id,
                         email:results.email,
                         name:results.name,
-                        username:results.username
+                        username:results.username,
+                        image:results.profile_image
                     }
                 }
                 catch (e) {
