@@ -5,15 +5,15 @@ import { type NextApiRequest, type NextApiResponse } from "next";
 import { NextResponse } from "next/server";
 
 export const config = {
-    api: {
+    api: { 
       bodyParser: true,
     },
   };
 
 export async function POST(req:Request, res:NextApiResponse) {
     try {
-        const {email, password,name, username}:
-        {email:string, password:string,name:string, username:string} = await req.json()
+        const {email, password,name, username,profile_image}:
+        {email:string, password:string,name:string, username:string,profile_image?:string} = await req.json()
 
         const db = await connectToDatabase()
 
@@ -26,7 +26,7 @@ export async function POST(req:Request, res:NextApiResponse) {
             following:[],
             followers:[],
             joined_at:[],
-            profile_image:'',
+            profile_image:profile_image ? profile_image : '',
             background_image:'',
             tweets:[],
             comments:[],
