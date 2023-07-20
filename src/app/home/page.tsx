@@ -40,6 +40,9 @@ export default async function Home() {
     const session = await getServerSession(authOptions)
     const tweets_data = await get_tweets(session?.user._id!)
 
+    const data = await getServerSession(authOptions)
+    console.log(data)
+
     return (
         <>
             <Header />
