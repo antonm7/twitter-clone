@@ -30,7 +30,6 @@ async function signup_action({email, password,name, username,profile_image}:
             })
         })
         const response = await request.json()
-
         return response
     } catch(e) {
         throw new Error('Unexpected Error')
@@ -83,15 +82,13 @@ export default function ImageSection({email, name,active,username,password}:Prop
                 <TwitterIcon />
             </div>
             <div className='w-[65%] m-auto font-bold pt-8'>
-            <h1 className='text-2xl pb-4'>Upload Your Profile Image</h1>
-            {/* <ImageUpload /> */}
+            <h1 className='text-2xl pb-4 text-center'>Upload Your Profile Image</h1>
             <div className="flex justify-center">
                 <UploadProfileImage method={(files) => setFile(files as ExtendedFiles[])}/>
             </div>
-            
              <button 
                 onClick={() => action()}
-                className="w-full h-10 bg-transparent bg-white text-black font-bold rounded-3xl text-sm mt-4" 
+                className="w-full h-10 bg-transparent bg-white text-black font-bold rounded-3xl text-sm mt-4"
                 id={styles.login}>
                     Create Your Profile
             </button>

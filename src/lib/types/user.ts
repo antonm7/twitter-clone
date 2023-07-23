@@ -5,6 +5,7 @@ export type UserSession = {
   email: string;
   name:string;
   username: string;
+  image:string;
 }
 
 export type FullUserDocument = {

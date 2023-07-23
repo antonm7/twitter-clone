@@ -8,13 +8,12 @@ import { ActiveProfile, Profile } from "./Icons/Profile";
 import MoreSettings from "./MoreSettings";
 import TwitterIcon from "./TwitterIcon";
 import User from "./User";
-import {StyledButtonBlue} from "../common/StyledButton";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 
 export default async function Menu() {
     const session = await getServerSession(authOptions)
-
+    
     return (
         <div className="h-full w-full max-w-[650px] flex flex-col items-end">
            <div className="h-full flex flex-col justify-between ml-8 mr-2">

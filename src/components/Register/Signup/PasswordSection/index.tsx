@@ -47,6 +47,7 @@ export default function PasswordSection({email, name,active,username}:Props) {
     }
 
     if(!active) return null
+    
    return (
         <div className={`absolute z-20 w-full h-full bg-red-200 top-0 left-0 ${styles.container}`}>
             <ImageSection 
