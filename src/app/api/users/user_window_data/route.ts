@@ -17,6 +17,7 @@ export async function GET(req:NextApiRequest, res:NextApiResponse) {
             username:user?.username,
             name:user?.name,
             bio:user?.bio,
+            img:user?.profile_image,
             following:user?.following,
             followers:user?.followers
         }
