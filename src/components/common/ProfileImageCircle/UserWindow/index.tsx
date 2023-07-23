@@ -13,6 +13,7 @@ type UserData = {
     username:string,
     name:string,
     bio:string,
+    img:string,
     following:string[],
     followers:string[],
 }
@@ -46,7 +47,7 @@ export default function UserWindow({username}:Props) {
     return (
         <div className="absolute tab_border min-w-[22rem] h-auto p-4 rounded-xl z-50" id={styles.wrapper}>
             <div className='flex justify-between'>
-                <ProfileImage size='lg'/>
+                <ProfileImage active_user_window={false} url={userData.img} size='lg'/>
                 <StyledButtonWhite onClick={() => null} title='Follow'/>
             </div>
             <h1 className='font-bold text-xl pt-2'>{userData.name}</h1>
