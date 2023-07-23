@@ -31,8 +31,13 @@ export default async function RootLayout({
         <NextAuthProvider>
           <HiddenLayer />
           <Register />
-          {!session?.user ? <RegisterBar /> : null}
-          {!session?.user ? <NotAuthenticated /> : <Menu />}
+          {
+            !session?.user ? <div>
+              <RegisterBar />
+              <NotAuthenticated />
+            </div> :
+            <Menu />
+          }
           <div className='max-w-[650px] min-w-[650px] w-full border_left border_right'>
             {children}
           </div>
