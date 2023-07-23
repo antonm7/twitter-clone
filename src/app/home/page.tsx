@@ -3,7 +3,7 @@ import TweetsSection from "@/components/Pages/Home/TweetsSection";
 import { authOptions } from "@/lib/auth";
 import { connectToDatabase } from "@/lib/mongodb";
 import { FullTweetData } from "@/lib/types/tweets";
-import { FullUserDocument } from "@/lib/types/user";
+import { FullUserDocument, UserSession } from "@/lib/types/user";
 import { ObjectId } from "mongodb";
 import { getServerSession } from "next-auth";
 
@@ -40,13 +40,14 @@ export default async function Home() {
     const session = await getServerSession(authOptions)
     const tweets_data = await get_tweets(session?.user._id!)
 
-    const data = await getServerSession(authOptions)
-    console.log(data)
-
     return (
         <>
             <Header />
-            <TweetsSection tweets={tweets_data ? tweets_data : []}/>
+            <TweetsSection 
+                tweets={tweets_data ? tweets_data : []}
+                authenticated={session?.user ? true : false}
+                userData={session?.user ? session.user as unknown as UserSession : null}
+            />
         </>
     )
 }
