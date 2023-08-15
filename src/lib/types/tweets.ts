@@ -1,5 +1,15 @@
 import { type ObjectId } from "mongodb";
 
+export type TweetDataForClient = {
+    _id:ObjectId | string,
+    userId:string,
+    user_img:string,
+    user_name:string,
+    user_username:string,
+    text:string,
+    createdAt:Date
+}
+
 export type FullTweetData = {
     _id:ObjectId | string;
     text:string;
@@ -11,9 +21,10 @@ export type FullTweetData = {
     user_name:string;
     user_username:string;
     user_img:string;
+    comments:string[];
 }
 
-export type Comment = {
+export type FullCommentData = {
     _id:ObjectId;
     parent_tweet:string;
     text:string[];
@@ -25,6 +36,21 @@ export type Comment = {
     user_name:string;
     user_username:string;
     user_img:string;
+    comments:string[];
+}
+
+export type InsertedComment = {
+    parent_tweet:string;
+    text:string;
+    likes:string[];
+    dislikes:string[];
+    retweets:string[];
+    userId:string;
+    createdAt:Date;
+    user_name:string;
+    user_username:string;
+    user_img:string;
+    comments:string[]
 }
 
 export type InsertedTweet = {
@@ -37,4 +63,5 @@ export type InsertedTweet = {
     user_name:string;
     user_username:string;
     user_img:string;
+    comments:string[];
 }
