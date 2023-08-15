@@ -40,7 +40,7 @@ export default function CreateTweet({insertedTweet,
     return (
         <div className="w-full min-h-fit flex border_bottom">
             <div className="w-20 h-auto flex justify-center pt-3">
-                <ProfileImage url={userData.image}/>
+                <ProfileImage active_user_window={false} url={userData.image}/>
             </div>
             <div className="w-full pr-8">
                <TextArea onChange={value => setText(value)}/>
