@@ -38,7 +38,8 @@ export async function POST(req:Request,res:NextApiResponse) {
             user_username:user?.username!,
             user_img:user?.profile_image!,
             user_name:user?.name!,
-            createdAt:new Date()
+            createdAt:new Date(),
+            comments:[]
         }
 
         const inserted_tweet = await db.collection('tweets').insertOne(tweet_object)
@@ -46,7 +47,8 @@ export async function POST(req:Request,res:NextApiResponse) {
         const updated_user = await db.collection<FullUserDocument>('users')
         .updateOne({_id:new ObjectId(userId)},{$pull:{tweets:JSON.stringify(inserted_tweet.insertedId)}})
 
-        const inserted_tweet_data = await db.collection<FullTweetData>('tweets').findOne({_id: new ObjectId(inserted_tweet.insertedId)})
+        const inserted_tweet_data = await db.collection<FullTweetData>('tweets')
+        .findOne({_id: new ObjectId(inserted_tweet.insertedId)})
 
         if(updated_user.acknowledged) {
             return NextResponse.json({ok:true,tweet:inserted_tweet_data},{status:201})
