@@ -1,7 +1,7 @@
 'use client'
 import { useHiddenLayerStore } from '@/store/HiddenLayer';
 import styles from './index.module.scss';
-import { MouseEventHandler, useRef } from 'react';
+import { MouseEventHandler, useEffect, useRef } from 'react';
 import { useRegisterWindowState } from '@/store/registerWindow';
 
 export default function HiddenLayer() {
@@ -23,7 +23,7 @@ export default function HiddenLayer() {
             }
         }
     };
-
+    
     if(!hiddenLayerStore.visibility) return null
 
     return (
