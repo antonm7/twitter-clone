@@ -7,18 +7,27 @@ type Props = {
     children:React.ReactNode
     onActive:(active:boolean) => void
     className?:string
+    bg?:boolean
+    closeable?:boolean
 }
 
-export function TurnOnHiddenLayerWrapper({children,onActive,className}:Props) {
+export function TurnOnHiddenLayerWrapper({children,
+    onActive,
+    className,
+    bg,
+    closeable}:Props) {
     const hiddenLayerStore = useHiddenLayerStore(state => state)
 
     const turnOnActive = () => {
+        if(hiddenLayerStore.visibility) return
         onActive(true)
-        hiddenLayerStore.changeVisibility(true)
+        hiddenLayerStore.changeVisibility(true, bg ? true : false)
     }
 
     useEffect(() => {
-        if(!hiddenLayerStore.visibility) onActive(false)
+        if(!hiddenLayerStore.visibility) {
+            onActive(false)
+        }
     },[hiddenLayerStore.visibility])
 
     return (
