@@ -27,7 +27,15 @@ export default function Tweet({
                 <div className="text-md block">
                     <p>{text}</p>
                 </div>
-                <BottomBar />
+                <BottomBar tweetData={{
+                     _id,
+                     userId,
+                     user_img,
+                     user_name,
+                     user_username,
+                     text,
+                     createdAt
+                }}/>
             </div>
         </div>
     )
