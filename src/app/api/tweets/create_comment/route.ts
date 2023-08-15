@@ -64,8 +64,7 @@ export async function POST(req:Request,res:NextApiResponse) {
         } else {
             throw new Error('User did not updated')
         }
-
-
+        
     } catch(e) {
         console.log('error on create_tweet Post request', e)
         return NextResponse.error()
