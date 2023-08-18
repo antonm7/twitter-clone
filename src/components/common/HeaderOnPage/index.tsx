@@ -2,14 +2,14 @@ import HoverAroundIcon from "../HoverAroundIcon";
 import { BackIcon } from "../Icons/CommonIcons";
 import styles from './index.module.scss';
 
-type Props = {
+type DefaultHeaderProps = {
     title:string
     subTitle?:string
 }
 
-export default function HeaderOnPage({title, subTitle}:Props) {
+export function DefaultHeader({title, subTitle}:DefaultHeaderProps) {
     return (
-        <div className="flex items-center py-[0.7rem] px-4">
+        <div className="flex items-center py-[0.7rem]">
             <HoverAroundIcon bg="white" className="w-10 h-10">
                 <BackIcon id={styles.icon}/>
             </HoverAroundIcon>
