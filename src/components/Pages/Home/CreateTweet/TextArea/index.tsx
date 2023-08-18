@@ -5,10 +5,11 @@ import styles from './index.module.scss';
 type Props = {
     onChange:(text:string) => void
     paddingTop?:string
+    placeholder?:string
 }
 
 
-export default function TextArea({onChange,paddingTop}:Props) {
+export default function TextArea({onChange,paddingTop,placeholder}:Props) {
     const textareaRef = useRef<any>(null)
 
     textareaRef?.current?.addEventListener('input', () => {
@@ -21,7 +22,7 @@ export default function TextArea({onChange,paddingTop}:Props) {
                 className='w-full text-xl'
                 id={styles.textarea}
                 ref={textareaRef}
-                placeholder="What is happening?!"
+                placeholder={placeholder ? placeholder : "What is happening?!"}
                 onChange={e => onChange(e.target.value)}
                 style={{paddingTop:paddingTop ? paddingTop : '1rem'}}
             />
