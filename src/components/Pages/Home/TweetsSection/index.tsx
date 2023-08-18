@@ -27,16 +27,18 @@ export default function TweetsSection({tweets,authenticated,userData}:Props) {
                 <Tweet 
                     key={JSON.stringify(tweet._id)}
                     _id={tweet._id}
-                    text={tweet.text} 
-                    likes={tweet.likes} 
-                    dislikes={tweet.dislikes} 
-                    retweets={tweet.retweets} 
-                    userId={tweet.userId} 
-                    createdAt={tweet.createdAt} 
-                    user_name={tweet.user_name} 
-                    user_username={tweet.user_username} 
-                    user_img={tweet.user_img} 
-                />))}
+                    text={tweet.text}
+                    likes={tweet.likes}
+                    dislikes={tweet.dislikes}
+                    retweets={tweet.retweets}
+                    userId={tweet.userId}
+                    createdAt={tweet.createdAt}
+                    user_name={tweet.user_name}
+                    user_username={tweet.user_username}
+                    user_img={tweet.user_img}
+                    comments={tweet.comments}           
+                    />
+            ))}
         </div>
     )
 }
