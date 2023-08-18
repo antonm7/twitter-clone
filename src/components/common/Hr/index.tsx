@@ -1,8 +1,12 @@
 import styles from './index.module.scss';
 
-export default function Hr() {
+type Props = {
+    style?:React.CSSProperties
+}
+
+export default function Hr({style}:Props) {
     return (
-        <div id={styles.hr}>
+        <div style={style} id={styles.hr}>
 
         </div>
     )
