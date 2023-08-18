@@ -47,7 +47,8 @@ export async function POST(req:Request,res:NextApiResponse) {
         .insertOne(comment_object)
 
         const updated_user = await db.collection<FullUserDocument>('users')
-        .updateOne({_id:new ObjectId(userId)},{$pull:{comments:JSON.stringify(inserted_comment.insertedId)}})
+        .updateOne({_id:new ObjectId(userId)},{$pull:
+            {comments:JSON.stringify(inserted_comment.insertedId)}})
 
         // TODO: need to know if its tweet or comment, for now
         // sticking with parent_tweet
@@ -57,7 +58,8 @@ export async function POST(req:Request,res:NextApiResponse) {
             comments:inserted_comment.insertedId.toString()
         }})
 
-        const inserted_comment_data = await db.collection<FullTweetData>('tweets').findOne({_id: new ObjectId(inserted_comment.insertedId)})
+        const inserted_comment_data = await db.collection<FullTweetData>('tweets')
+        .findOne({_id: new ObjectId(inserted_comment.insertedId)})
 
         if(updated_user.acknowledged) {
             return NextResponse.json({ok:true,tweet:inserted_comment_data},{status:201})
