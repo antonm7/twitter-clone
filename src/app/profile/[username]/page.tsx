@@ -1,4 +1,4 @@
-import HeaderOnPage from "@/components/common/HeaderOnPage";
+import {DefaultHeader} from "@/components/common/HeaderOnPage";
 import { ProfileImage } from "@/components/common/ProfileImageCircle";
 import { connectToDatabase } from "@/lib/mongodb";
 import { FullUserDocument } from "@/lib/types/user";
@@ -22,11 +22,11 @@ export default async function Profile({params}:{params:{username:string}}) {
 
     return (
         <>
-            <HeaderOnPage title={params.username} subTitle={'6 Tweets'} />
+            <DefaultHeader title={params.username} subTitle={'6 Tweets'} />
             <div className="w-full h-52 bg-gray-500" />
             <div className="px-6 relative">
                 <div className="absolute" id={styles.profile_image_wrapper}>
-                    <ProfileImage username={params.username} size="lg"/>
+                    <ProfileImage username={params.username} size="lg" active_user_window={false}/>
                 </div>
                 <div className="flex items-center justify-end pt-4">
                     <div className="pr-4">
