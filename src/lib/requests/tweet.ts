@@ -35,3 +35,24 @@ export async function post_comment({
         return {error:e as string}
     }
 }
+
+export async function get_comments({parentTweet}
+    :{parentTweet:string | ObjectId}):Promise<ResponseObject> {
+    try {
+        // TODO:appearently, when you call fetch from server side component/page, you
+        // need to specify the relative path  
+        const request = await fetch(`http://localhost:3000/api/tweets/get_comments?parentTweet=${parentTweet}`,{
+            method:"GET"
+        })
+        const response = await request.json()
+
+        if(response.ok) {
+            return {error:false,data:response.comments} 
+        } else {
+            throw new Error('Unexpected Error')
+        }
+        
+    } catch(e) { 
+        return {error:e as string}
+    }
+}
