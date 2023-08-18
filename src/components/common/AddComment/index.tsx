@@ -10,6 +10,7 @@ import { FullTweetData, TweetDataForClient } from "@/lib/types/tweets";
 import { useSession } from "next-auth/react";
 import { authOptions } from "@/lib/auth";
 import { useState } from "react";
+import { post_comment } from "@/lib/requests/tweet";
 
 type Props = {
     active:boolean
@@ -21,25 +22,16 @@ export function AddComment({active,tweetData}:Props) {
     const {data} = useSession()
     const [text, setText] = useState<string>('')
 
-    async function post_comment() {
-        try {
-            const request = await fetch('/api/tweets/create_comment', {
-                method:'POST',
-                body:JSON.stringify({
-                    userId:data?.user._id,
-                    text,
-                    parentTweet:tweetData._id
-                })
-            })
-            const response = await request.json()
-            if(response.ok) {
-                console.log('inserted!',response)
-            } else {
-                console.log(response)
-            }
-        } catch(e) { 
-            console.log('error',e)
-            throw new Error('Unexpected Error')
+    const handle_post_comment = async () => {
+        const action = await post_comment({
+            userId:data?.user._id || '',
+            text,
+            parentTweet:tweetData._id || ''
+        })
+        if(!action.error) {
+            alert('Error')
+        } else {
+            alert('nice,posted!')
         }
     }
 
@@ -53,7 +45,7 @@ export function AddComment({active,tweetData}:Props) {
             />
            <MinimizedTweet tweetData={tweetData} />
            <CreateComment updateText={value => setText(value)}/>
-           <BottomTab method={() => void post_comment()}/>
+           <BottomTab method={() => void handle_post_comment()}/>
         </div>
     )
 }
@@ -97,8 +89,6 @@ export function CreateComment({updateText}:{updateText:(text:string) => void}) {
         </div>
     )
 }
-
-
 
 export function BottomTab({method}:{method:() => void}) {
     return (
