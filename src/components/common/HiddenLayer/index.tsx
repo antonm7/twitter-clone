@@ -10,6 +10,8 @@ export default function HiddenLayer() {
     const signupVisibility = useRegisterWindowState(state => state)
     const componentRef = useRef<any>(null)
 
+    // Function to identify when click event happens outside
+    // of the div element.
     const handleClick: MouseEventHandler<HTMLDivElement> = (event) => {
         if ( componentRef.current && event.target instanceof Node &&
             !componentRef.current.contains(event.target)) {
