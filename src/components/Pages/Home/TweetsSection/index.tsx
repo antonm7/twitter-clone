@@ -16,7 +16,7 @@ export default function TweetsSection({tweets,authenticated,userData}:Props) {
     const [tweetsList, setTweetsList] = useState<FullTweetData[]>(tweets)
 
     return (
-        <div>
+        <>
             {authenticated && userData ? 
                 <CreateTweet 
                     userData={userData}
@@ -39,6 +39,6 @@ export default function TweetsSection({tweets,authenticated,userData}:Props) {
                     comments={tweet.comments}           
                     />
             ))}
-        </div>
+        </>
     )
 }
