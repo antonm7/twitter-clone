@@ -27,7 +27,7 @@ export type FullTweetData = {
 export type FullCommentData = {
     _id:ObjectId;
     parent_tweet:string;
-    text:string[];
+    text:string;
     likes:string[];
     dislikes:string[];
     retweets:string[];
