@@ -1,3 +1,6 @@
+'use client';
+
+import { useRouter } from "next/navigation";
 import HoverAroundIcon from "../HoverAroundIcon";
 import { BackIcon } from "../Icons/CommonIcons";
 import styles from './index.module.scss';
@@ -8,9 +11,11 @@ type DefaultHeaderProps = {
 }
 
 export function DefaultHeader({title, subTitle}:DefaultHeaderProps) {
+    const router = useRouter()
+
     return (
         <div className="flex items-center py-[0.7rem]">
-            <HoverAroundIcon bg="white" className="w-10 h-10">
+            <HoverAroundIcon bg="white" className="w-10 h-10" onClick={() => router.back()}>
                 <BackIcon id={styles.icon}/>
             </HoverAroundIcon>
             <div className="pl-4">
