@@ -1,7 +1,7 @@
 import { Actions } from "@/components/Pages/Tweet/Actions";
 import { CreatedInformation, StatsInformation } from "@/components/Pages/Tweet/Information";
 import { Reply } from "@/components/Pages/Tweet/Reply";
-import { TweetsList } from "@/components/Pages/Tweet/TweetsList";
+import { CommentsList } from "@/components/Pages/Tweet/CommentsList";
 import { DefaultHeader } from "@/components/common/HeaderOnPage"
 import Hr from "@/components/common/Hr";
 import { ProfileImage } from "@/components/common/ProfileImageCircle";
@@ -71,7 +71,7 @@ export default async function TweetPage({params}:PageProps) {
                 <Hr style={{marginTop:'0.1rem'}}/>
             </div>
             <Reply tweetData={tweet_data}/>
-            <TweetsList parentTweet={tweet_data._id}/>
+            <CommentsList parentTweet={tweet_data._id}/>
         </>
     )
     
