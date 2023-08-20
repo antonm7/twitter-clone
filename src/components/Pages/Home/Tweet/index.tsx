@@ -1,4 +1,4 @@
-import { ProfileImage, RegularProfileImageCircle } from "@/components/common/ProfileImageCircle";
+import { ProfileImage } from "@/components/common/ProfileImageCircle";
 import { BottomBar } from "./BottomBar";
 import { SettingsWithBackground } from "@/components/common/Icons/Settings";
 import { type FullTweetData } from "@/lib/types/tweets";
@@ -11,8 +11,15 @@ export default function Tweet({
     user_name,
     user_username,
     text,
-    createdAt
+    createdAt,
+    likes,
+    retweets,
+    comments,
+    views,
+    shares
 }:FullTweetData) {
+//    TODO:FETCH FROM DATABASE IF THE USER LIKED AND RETWEETED
+
     return (
         <Link href={`/tweet/${_id}`}>
             <div className="hover_effect_light hover_effect_transition flex border_bottom pt-2 pb-3 px-4">
@@ -32,14 +39,22 @@ export default function Tweet({
                     <BottomBar 
                         size="sm"
                         tweetData={{
-                        _id,
-                        userId,
-                        user_img,
-                        user_name,
-                        user_username,
-                        text,
-                        createdAt
-                    }}/>
+                            _id,
+                            userId,
+                            user_img,
+                            user_name,
+                            user_username,
+                            text,
+                            createdAt
+                        }} 
+                        likes_length={likes} 
+                        retweet_length={retweets} 
+                        comments_length={comments} 
+                        chart={views} 
+                        share={shares}
+                        isUserLiked={false}
+                        isUserRetweeted={false}
+                    />
                 </div>
             </div>
         </Link>
