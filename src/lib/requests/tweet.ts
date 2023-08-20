@@ -1,9 +1,5 @@
 import { ObjectId } from "mongodb"
-
-type ResponseObject = {
-    error:string | boolean
-    data?:any
-}
+import { ResponseObject } from "./types"
 
 type post_comment_type = {
     userId:string | ObjectId
@@ -47,7 +43,7 @@ export async function get_comments({parentTweet}
         const response = await request.json()
 
         if(response.ok) {
-            return {error:false,data:response.comments} 
+            return {error:false,data:response} 
         } else {
             throw new Error('Unexpected Error')
         }
@@ -56,3 +52,25 @@ export async function get_comments({parentTweet}
         return {error:e as string}
     }
 }
+
+export async function get_stats({parentTweet,userId}:
+    {parentTweet:string | ObjectId,userId:string | ObjectId | null}):Promise<ResponseObject> {
+   
+    try {
+        const request = await fetch(`http://localhost:3000/api/tweets/get_stats?parentTweet=${parentTweet}&userId=${userId}`,{
+            method:"GET"
+        })
+        const response = await request.json()
+        if(response.ok) {
+            return {error:false,data:response.data as {isUserLiked:boolean,
+                isUserRetweeted:boolean
+            }
+        }
+        } else {
+            throw new Error('Unexpected Error')
+        }
+
+    } catch(e) {
+        return {error:e as string}
+    }
+} 
