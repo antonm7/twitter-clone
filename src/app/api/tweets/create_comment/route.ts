@@ -31,32 +31,29 @@ export async function POST(req:Request,res:NextApiResponse) {
 
         const comment_object:InsertedComment = {
             text,
-            likes: [],
-            dislikes: [],
-            retweets: [],
+            likes: 0,
+            retweets: 0,
             userId,
             user_username: user?.username!,
             user_img: user?.profile_image!,
             user_name: user?.name!,
             createdAt: new Date(),
             parent_tweet: parentTweet,
-            comments:[]
+            comments:0,
+            shares:0,
+            views:0
         }
 
         const inserted_comment = await db.collection<InsertedComment>('comments')
         .insertOne(comment_object)
 
         const updated_user = await db.collection<FullUserDocument>('users')
-        .updateOne({_id:new ObjectId(userId)},{$pull:
+        .updateOne({_id:new ObjectId(userId)},{$push:
             {comments:JSON.stringify(inserted_comment.insertedId)}})
 
-        // TODO: need to know if its tweet or comment, for now
-        // sticking with parent_tweet
-        // probably will stick to comments on parent_tweets only.
+        // updating parent tweet (inc) number of comments
         await db.collection<FullTweetData>('tweets')
-        .updateOne({_id:new ObjectId(parentTweet)},{$push:{
-            comments:inserted_comment.insertedId.toString()
-        }})
+        .updateOne({_id:new ObjectId(parentTweet)},{$inc:{comments:1}})
 
         const inserted_comment_data = await db.collection<FullTweetData>('tweets')
         .findOne({_id: new ObjectId(inserted_comment.insertedId)})

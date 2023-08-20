@@ -10,36 +10,37 @@ import { z } from 'zod';
 export async function POST(req:Request,res:NextApiResponse) {
     try {
         const body = await req.json()
-        console.log(body)
+
         const schema  = z.object({
             userId:z.string(),
             text:z.string().max(124).min(1)
         })
 
-        const validate_result = schema.safeParse(body)
+        const validate_body = schema.safeParse(body)
 
-        if(!validate_result.success) {
+        if(!validate_body.success) {
             return NextResponse.json({ error: 'Invalid Request' }, { status: 400 })
         }
 
         const db = await connectToDatabase()
         
-        const {userId, text } = validate_result.data
+        const {userId, text } = validate_body.data
 
         const user = await db.collection<FullUserDocument>('users')
         .findOne({_id: new ObjectId(userId)})
 
         const tweet_object:InsertedTweet = {
             text,
-            likes: [],
-            dislikes: [],
-            retweets: [],
+            likes: 0,
+            retweets: 0,
             userId,
             user_username:user?.username!,
             user_img:user?.profile_image!,
             user_name:user?.name!,
             createdAt:new Date(),
-            comments:[]
+            comments:0,
+            views:0,
+            shares:0
         }
 
         const inserted_tweet = await db.collection('tweets').insertOne(tweet_object)
