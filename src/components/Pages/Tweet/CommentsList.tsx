@@ -1,5 +1,4 @@
 'use client';
-
 import { FullComment } from "@/components/common/FullComment/Index";
 import { get_comments } from "@/lib/requests/tweet";
 import { FullCommentData } from "@/lib/types/tweets";
