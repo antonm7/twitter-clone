@@ -1,7 +1,7 @@
+
 import { FullCommentData } from "@/lib/types/tweets";
 import { SettingsWithBackground } from "../Icons/Settings";
 import { BottomBar } from "@/components/Pages/Home/Tweet/BottomBar";
-import { text } from "stream/consumers";
 import { ProfileImage } from "../ProfileImageCircle";
 
 export function FullComment(data:FullCommentData) {
@@ -28,14 +28,21 @@ export function FullComment(data:FullCommentData) {
                     <BottomBar 
                         size="sm"
                         tweetData={{
-                        _id:data._id,
-                        userId:data.userId,
-                        user_img:data.user_img,
-                        user_name:data.user_name,
-                        user_username:data.user_username,
-                        text:data.text,
-                        createdAt:data.createdAt
-                    }}/>
+                            _id: data._id,
+                            userId: data.userId,
+                            user_img: data.user_img,
+                            user_name: data.user_name,
+                            user_username: data.user_username,
+                            text: data.text,
+                            createdAt: data.createdAt
+                        }} 
+                        likes_length={data.likes}
+                        retweet_length={data.retweets} 
+                        comments_length={data.comments} 
+                        chart={data.views} 
+                        share={data.shares} 
+                        isUserLiked={false} 
+                        isUserRetweeted={false}/>
                 </div>
             </div>
         </div>
