@@ -2,12 +2,13 @@
 
 import { Sizes } from '@/lib/types/common'
 import { BsBookmark } from 'react-icons/bs'
-import { FaChartBar, FaRegComment, FaRegHeart, FaShare } from 'react-icons/fa/index'
+import { FaChartBar, FaHeart, FaRegComment, FaRegHeart, FaShare } from 'react-icons/fa/index'
 import { FaRetweet } from 'react-icons/fa/index'
 
 type Props = {
     id:string
     size:Sizes
+    full?:boolean
 }
 
 export function Chat({id,size}:Props) {
@@ -26,10 +27,11 @@ export function RetweetIcon({id,size}:Props) {
     ) 
 }
 
-export function HeartIcon({id,size}:Props) {
+export function HeartIcon({id,size,full}:Props) {
     return (
         <div id={id} className={`${size === 'sm' ? 'h-8 w-8' : 'h-10 w-10'} flex items-center justify-center rounded-full`}>
-            <FaRegHeart className={`${size === 'sm' ? 'text-base' : 'text-xl'} sub_text`}/>
+            {full ? <FaHeart className={`${size === 'sm' ? 'text-base' : 'text-xl'} sub_text`}/> :
+            <FaRegHeart className={`${size === 'sm' ? 'text-base' : 'text-xl'} sub_text`}/> }
         </div>
     ) 
 }
