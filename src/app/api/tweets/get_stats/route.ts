@@ -15,7 +15,7 @@ export async function GET(req:Request,res:NextApiResponse) {
         const db = await connectToDatabase()
 
         if(!parent_tweet || typeof parent_tweet !== 'string') return NextResponse.error()
-
+        console.log(userId)
         const liked = () => db.collection<FullLikeData>('likes').findOne({userId})
         const retweeted = () => db.collection<FullCommentData>('comments').findOne({userId})
 
@@ -23,7 +23,7 @@ export async function GET(req:Request,res:NextApiResponse) {
             liked(),
             retweeted()
         ]) as unknown as {status:'fullfiled' | 'rejected',value:number}[]
-
+        console.log(stats)
         return NextResponse.json({ok:true,data:{
             isUserLiked:stats[0].value ? true : false,
             isUserRetweeted:false

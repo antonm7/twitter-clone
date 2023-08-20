@@ -24,12 +24,13 @@ export default function TweetsSection({tweets,authenticated,userData}:Props) {
                 />
             : null }
             {tweetsList?.map(tweet => (
-                <Tweet 
+                <Tweet
+                    userData={userData as unknown as UserSession}
+                    authentication={authenticated}
                     key={JSON.stringify(tweet._id)}
                     _id={tweet._id}
                     text={tweet.text}
                     likes={tweet.likes}
-                    dislikes={tweet.dislikes}
                     retweets={tweet.retweets}
                     userId={tweet.userId}
                     createdAt={tweet.createdAt}

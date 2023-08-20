@@ -18,7 +18,6 @@ export type FullTweetData = {
     comments:number;
     shares:number;
     views:number;
-    dislikes:string[];
     userId:string;
     createdAt:Date;
     user_name:string;
