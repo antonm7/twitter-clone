@@ -1,7 +1,7 @@
 'use client';
 
 import { type FullTweetData } from "@/lib/types/tweets";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Tweet from "../Tweet";
 import CreateTweet from "../CreateTweet";
 import { UserSession } from "@/lib/types/user";
@@ -36,8 +36,10 @@ export default function TweetsSection({tweets,authenticated,userData}:Props) {
                     user_name={tweet.user_name}
                     user_username={tweet.user_username}
                     user_img={tweet.user_img}
-                    comments={tweet.comments}           
-                    />
+                    comments={tweet.comments} 
+                    shares={tweet.shares} 
+                    views={tweet.views}                    
+                />
             ))}
         </>
     )
