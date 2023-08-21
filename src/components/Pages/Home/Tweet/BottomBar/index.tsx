@@ -18,7 +18,6 @@ type Props = {
     chart:number
     share:number
     isUserLiked:boolean
-    isUserRetweeted:boolean
 }
 
 export function BottomBar(props:Props) {
