@@ -28,7 +28,7 @@ export function Like({size, activeNumberOfLike,userId, parentTweet,likes,isUserL
             return
         }
     }
-
+    
     return (
         <div onClick={(e) => handle_like_action(e)}  id={styles.like_container} className={`cursor-pointer flex items-center`}>
             <HeartIcon size={size} id={styles.like} full={isUserLiked}/>
