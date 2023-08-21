@@ -1,19 +1,33 @@
 'use client';
 
 import { type FullTweetData } from "@/lib/types/tweets";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Tweet from "../Tweet";
 import CreateTweet from "../CreateTweet";
 import { UserSession } from "@/lib/types/user";
+import { get_tweets } from "@/lib/requests/tweet";
 
 type Props = {
-    tweets:FullTweetData[]
     authenticated:boolean
     userData:UserSession | null
 }
 
-export default function TweetsSection({tweets,authenticated,userData}:Props) {
-    const [tweetsList, setTweetsList] = useState<FullTweetData[]>(tweets)
+export default function TweetsSection({authenticated,userData}:Props) {
+    const [tweetsList, setTweetsList] = useState<FullTweetData[]>([])
+    const [loading, setLoading] = useState<boolean>(true)
+    const [likedTweets, setLikedTweets] = useState<string[]>([])
+
+    useEffect(() => {
+        async function get_tweets_handle() {
+            const req = await get_tweets(authenticated ? userData?._id.toString()! : null)
+            if(!req.error) {
+                setTweetsList(req.data.tweets)
+                setLikedTweets(req.data.liked_tweets)
+            } 
+            setLoading(false)
+        }   
+        get_tweets_handle() 
+    },[])
 
     return (
         <>
@@ -23,7 +37,7 @@ export default function TweetsSection({tweets,authenticated,userData}:Props) {
                     insertedTweet={newTweet => setTweetsList([newTweet,...tweetsList])}
                 />
             : null }
-            {tweetsList?.map(tweet => (
+            {loading ? <h1>Loading...</h1> : tweetsList?.map(tweet => (
                 <Tweet
                     userData={userData as unknown as UserSession}
                     authentication={authenticated}
@@ -39,7 +53,8 @@ export default function TweetsSection({tweets,authenticated,userData}:Props) {
                     user_img={tweet.user_img}
                     comments={tweet.comments} 
                     shares={tweet.shares} 
-                    views={tweet.views}                    
+                    views={tweet.views}   
+                    isUserLiked={likedTweets.includes(tweet._id.toString())}                
                 />
             ))}
         </>
