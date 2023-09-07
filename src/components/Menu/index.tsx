@@ -15,8 +15,8 @@ export default async function Menu() {
     const session = await getServerSession(authOptions)
     
     return (
-        <div className="h-full w-full max-w-[650px] flex flex-col items-end">
-           <div className="h-full flex flex-col justify-between ml-8 mr-2">
+        <div className="w-full max-w-[650px] flex flex-col items-end">
+           <div className="h-full flex flex-col justify-between ml-8 fixed border_right">
             <div className="pr-12">
                 <TwitterIcon />
                 <Tab 
