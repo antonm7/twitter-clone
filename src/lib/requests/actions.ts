@@ -27,3 +27,26 @@ export async function post_like({
         return {error:e as string}
     }
 }
+
+export async function post_unlike({
+    userId,
+    parentTweet
+}:post_like_type):Promise<ResponseObject> {
+    try {
+        const request = await fetch('/api/tweets/unlike_tweet', {
+            method:'POST',
+            body:JSON.stringify({
+                userId,
+                parentTweet
+            })
+        })
+        const response = await request.json()
+        if(response.ok) {
+            return {error:false} 
+        } else {
+            throw new Error('Unexpected Error')
+        }
+    } catch(e) { 
+        return {error:e as string}
+    }
+}
