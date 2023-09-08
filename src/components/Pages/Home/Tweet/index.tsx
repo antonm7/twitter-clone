@@ -44,8 +44,8 @@ export default function Tweet({
                         </div>
                         <SettingsWithBackground />
                     </div>
-                    <div className="text-md block">
-                        <p>{text}</p>
+                    <div className="text-md block max-w-full overflow-hidden">
+                        <p className="h-auto max-w-full break-all">{text}</p>
                     </div>
                     <BottomBar 
                         size="sm"

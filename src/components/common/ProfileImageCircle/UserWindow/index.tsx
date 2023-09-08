@@ -29,7 +29,6 @@ export default function UserWindow({username}:Props) {
             if(req.ok) {
                 const res = await req.json()
                 setUserData(res.data)
-                console.log(res.data)
             } else {
                 throw new Error('Unexpected Error')
             }

@@ -29,7 +29,6 @@ export default function CreateTweet({insertedTweet,
             if(response.ok) {
                 insertedTweet(response.tweet)
             } else {
-                console.log(response)
             }
         } catch(e) { 
             console.log('error',e)

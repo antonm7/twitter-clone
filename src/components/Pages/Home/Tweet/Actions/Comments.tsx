@@ -7,7 +7,6 @@ import { RefObject, useState } from "react";
 import { AddComment } from "@/components/common/AddComment";
 import { TweetDataForClient } from "@/lib/types/tweets";
 import { Sizes } from "@/lib/types/common";
-import { avoid_wrapper } from "@/lib/helpers";
 
 type Props = {
     tweetData:TweetDataForClient
@@ -29,7 +28,7 @@ export function Comments({tweetData,
                     {activeNumberOfComments ? <span className="sub_text text-sm pl-2">4</span> 
                     : null}
                 </div>
-                <AddComment tweetData={tweetData} active={active}/>
+                {active ? <AddComment tweetData={tweetData} active={active}/> : null}
             </TurnOnHiddenLayerWrapper>
         </div>
     )

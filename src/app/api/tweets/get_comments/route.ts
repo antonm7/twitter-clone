@@ -1,14 +1,13 @@
 import { url_parse } from "@/lib/helpers";
 import { connectToDatabase } from "@/lib/mongodb";
+import { FullLikeData } from "@/lib/types/like";
 import type { FullCommentData } from "@/lib/types/tweets";
 import { NextApiResponse } from "next";
 import { NextResponse } from "next/server";
 
 export async function GET(req:Request,res:NextApiResponse) {
     try {
-        console.log('dusiao783892hjkdsa')
         const parsed = url_parse(req.url as string)
-        console.log('parsed data:',parsed)
         const parent_tweet = parsed.parentTweet
 
         const db = await connectToDatabase()
@@ -17,8 +16,20 @@ export async function GET(req:Request,res:NextApiResponse) {
 
         const comments = await db.collection<FullCommentData>('comments')
         .find({parent_tweet}).toArray()
-        
-        return NextResponse.json({ok:true,comments})
+
+        const comments_ids = [...comments.map(t => t._id.toString())]
+
+        const liked_comments = parsed.userId ? await db.collection<FullLikeData>('likes')
+        .find({userId:parsed.userId,parentTweet:{$in:comments_ids}}).toArray() : []
+
+        const only_liked_comments_ids:string[] = liked_comments.length ? [...liked_comments.map(t => t.parentTweet)] : []
+
+        console.log(parsed.userId)
+
+        return NextResponse.json({
+            ok:true,comments,
+            liked_comments:only_liked_comments_ids
+        })
 
     } catch(e) {
         console.log('error on get comments request', e)

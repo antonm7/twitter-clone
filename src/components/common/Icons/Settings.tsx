@@ -8,7 +8,6 @@ type Props = {
 }
 
 export function SettingsWithBackground ({onClick}:Props) {
-
     const handle_click = (e:React.MouseEvent) => {
         e.preventDefault()
         onClick ? onClick() : null

@@ -27,21 +27,22 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <body className={`h-screen ${inter.className} flex`}>
+      <body className={`${inter.className} flex`}>
         <NextAuthProvider>
           <HiddenLayer />
           <Register />
-          {
-            !session?.user ? <div>
-              <RegisterBar />
-              <NotAuthenticated />
-            </div> :
-            <Menu />
-          }
-          <div className='max-w-[650px] min-w-[650px] w-full border_left border_right'>
+            {
+              !session?.user ? 
+              <>
+                <RegisterBar />
+                <NotAuthenticated />
+              </> :
+              <Menu />
+            }
+          <div className='max-w-[650px] min-w-[650px] w-full border_right min-h-screen h-auto'>
             {children}
           </div>
-          <div className='max-w-sm w-full m-4 mt-2 ml-8 pr-16'>
+          <div className='max-w-sm w-full pl-2 mt-2 pr-16 min-h-full'>
             <SearchBar />
             <ForYou />
           </div>

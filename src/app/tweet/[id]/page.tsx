@@ -8,6 +8,10 @@ import { ProfileImage } from "@/components/common/ProfileImageCircle";
 import { connectToDatabase } from "@/lib/mongodb"
 import { type FullTweetData } from "@/lib/types/tweets";
 import { ObjectId } from "mongodb";
+import { get_tweets } from "@/lib/requests/tweet";
+import { useEffect } from "react";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
 
 async function get_tweet_data(id:string):Promise<null | FullTweetData> {
     try {
@@ -28,7 +32,8 @@ type PageProps = {
 
 export default async function TweetPage({params}:PageProps) {
     const tweet_data = await get_tweet_data(params.id)
-    
+    const session = await getServerSession(authOptions)
+
     if(!tweet_data) return (
         <>
             <DefaultHeader title="Tweet"/>
@@ -67,11 +72,11 @@ export default async function TweetPage({params}:PageProps) {
                     bookmarks={0} 
                 />
                 <Hr style={{marginTop:'1rem',marginBottom:'0.1rem'}}/>
-                <Actions />
+                <Actions tweetData={tweet_data}/>
                 <Hr style={{marginTop:'0.1rem'}}/>
             </div>
             <Reply tweetData={tweet_data}/>
-            <CommentsList parentTweet={tweet_data._id}/>
+            <CommentsList parentTweet={tweet_data._id} userSession={session}/>
         </>
     )
     
