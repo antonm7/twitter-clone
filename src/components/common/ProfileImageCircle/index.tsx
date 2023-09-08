@@ -24,11 +24,17 @@ export function RegularProfileImageCircle({onClick}:Props) {
 
 export function ProfileImage({onClick,url,size,username,active_user_window}:Props) {
     const [visible, setVisible] = useState<boolean>(false)
+    
+    const handle_click = (e:React.MouseEvent) => {
+        e.preventDefault()
+        onClick ? onClick(e) : null
+    }
+
     if(!url) {
         return (
                 <div onMouseEnter={() => setVisible(true)} 
                     onMouseLeave={() => setVisible(false)} 
-                    className={`${size === 'lg' ? 'min-w-[5rem] w-20 h-20' : 'min-w-[2.5rem] w-10 h-10'} relative rounded-full`} onClick={onClick}>
+                    className={`${size === 'lg' ? 'min-w-[5rem] w-20 h-20' : 'min-w-[2.5rem] w-10 h-10'} relative rounded-full`} onClick={handle_click}>
                     <NoProfileImage size={size}/>
                     {active_user_window && visible ? <UserWindow username={username ? username : ''}/> : null}
                 </div>
@@ -39,7 +45,7 @@ export function ProfileImage({onClick,url,size,username,active_user_window}:Prop
                     onMouseEnter={() => setVisible(true)} 
                     onMouseLeave={() => setVisible(false)} className={`${size === 'lg' ?
                      'min-w-[5rem] w-20 h-20' : 'min-w-[2.5rem] w-10 h-10'} relative rounded-full`} 
-                    onClick={onClick}
+                    onClick={handle_click}
                 >
                     <YesProfileImage img={url}/>
                     {active_user_window && visible ? <UserWindow username={username ? username : ''}/> : null}
