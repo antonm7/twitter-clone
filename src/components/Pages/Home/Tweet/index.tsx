@@ -1,4 +1,3 @@
-
 'use client';
 
 import { ProfileImage } from "@/components/common/ProfileImageCircle";
@@ -6,7 +5,6 @@ import { BottomBar } from "./BottomBar";
 import { SettingsWithBackground } from "@/components/common/Icons/Settings";
 import { type FullTweetData } from "@/lib/types/tweets";
 import Link from "next/link";
-import { useState } from "react";
 import { UserSession } from "@/lib/types/user";
 
 interface Props extends FullTweetData {
