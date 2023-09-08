@@ -6,9 +6,8 @@ import { ProfileImage } from "../ProfileImageCircle";
 import styles from './index.module.scss';
 import { StyledButtonBlue } from "../StyledButton";
 import { useHiddenLayerStore } from "@/store/HiddenLayer";
-import { FullTweetData, TweetDataForClient } from "@/lib/types/tweets";
+import { TweetDataForClient } from "@/lib/types/tweets";
 import { useSession } from "next-auth/react";
-import { authOptions } from "@/lib/auth";
 import { useState } from "react";
 import { post_comment } from "@/lib/requests/tweet";
 
@@ -28,7 +27,7 @@ export function AddComment({active,tweetData}:Props) {
             text,
             parentTweet:tweetData._id || ''
         })
-        if(!action.error) {
+        if(action.error) {
             alert('Error')
         } else {
             alert('nice,posted!')
@@ -38,7 +37,7 @@ export function AddComment({active,tweetData}:Props) {
     if(!active) return null
 
     return (
-        <div className="fixed w-[33rem] h-min rounded-xl z-50 p-4" id={styles.wrapper}>
+        <div className="fixed w-[33rem] h-min rounded-xl z-50 p-4 cursor-default" id={styles.wrapper}>
            <Xmark 
                 id={styles.close_button}
                 method={() => HiddenLayer.changeVisibility(false)}
@@ -52,15 +51,15 @@ export function AddComment({active,tweetData}:Props) {
 
 export function MinimizedTweet({tweetData}:{tweetData:TweetDataForClient}) {
     return (
-            <div className="flex pt-6 ">
-                <div>
+            <div className="flex pt-6 overflow-hidden">
+                <div className="max-h-full ">
                     <ProfileImage 
                         active_user_window={false}
                         username={tweetData.user_username}
                         url={tweetData.user_img}/>
                     <ConnectionLine />
                 </div>
-                <div className="ml-4 w-full ">
+                <div className="ml-4 w-full">
                     <div className="flex justify-between items-center">
                         <div>
                             <span className="text-base font-medium pr-1">{tweetData.user_name}</span>
@@ -69,7 +68,7 @@ export function MinimizedTweet({tweetData}:{tweetData:TweetDataForClient}) {
                         </div>
                     </div>
                     <div className="text-md block">
-                        <p>{tweetData.text}</p>
+                        <p className="break-all ">{tweetData.text}</p>
                     </div>
                 </div>
             </div>
@@ -78,7 +77,7 @@ export function MinimizedTweet({tweetData}:{tweetData:TweetDataForClient}) {
 
 export function CreateComment({updateText}:{updateText:(text:string) => void}) {
     return (
-        <div className="min-h-fit pt-4 ">
+        <div className="min-h-fit pt-2">
             <div className="h-auto flex justify-center pr-4">
                 <div className="pr-4">
                     <ProfileImage active_user_window={false} url={''}/>
@@ -100,7 +99,7 @@ export function BottomTab({method}:{method:() => void}) {
 
 export function ConnectionLine() {
     return (
-        <div className="w-[2px] h-[77%] bg-gray-600 m-auto mt-2"></div>
+        <div className={`w-[2px] bg-gray-600 m-auto mt-2 h-full`}></div>
     )
 }
 
