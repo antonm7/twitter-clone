@@ -39,7 +39,7 @@ export async function GET(req:Request,res:NextApiResponse) {
         const liked_tweets = await db.collection<FullLikeData>('likes')
         .find({userId,parentTweet:{$in:tweets_ids}}).toArray()
 
-        let only_tweets_ids:string[] = [...liked_tweets.map(t => t.parentTweet)]
+        const only_tweets_ids:string[] = [...liked_tweets.map(t => t.parentTweet)]
 
         return NextResponse.json({
             ok:true,
