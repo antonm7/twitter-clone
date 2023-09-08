@@ -16,8 +16,9 @@ export async function POST(req:Request,res:NextApiResponse) {
             text:z.string().max(124).min(1)
         })
 
+        
         const validate_result = schema.safeParse(body)
-
+        
         if(!validate_result.success) {
             return NextResponse.json({ error: 'Invalid Request' }, { status: 400 })
         }
