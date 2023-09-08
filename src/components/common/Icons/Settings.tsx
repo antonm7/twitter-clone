@@ -8,8 +8,14 @@ type Props = {
 }
 
 export function SettingsWithBackground ({onClick}:Props) {
+
+    const handle_click = (e:React.MouseEvent) => {
+        e.preventDefault()
+        onClick ? onClick() : null
+    }
+
     return (
-        <div onClick={onClick} id={styles.wrapper} className='h-8 w-8 flex items-center justify-center rounded-full'>
+        <div onClick={e => handle_click(e)} id={styles.wrapper} className='h-8 w-8 flex items-center justify-center rounded-full'>
             <HiDotsHorizontal id={styles.icon} className='text-base sub_text'/>
         </div>
     )
