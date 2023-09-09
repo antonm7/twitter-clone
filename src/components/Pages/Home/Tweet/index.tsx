@@ -5,11 +5,8 @@ import { BottomBar } from "./BottomBar";
 import { SettingsWithBackground } from "@/components/common/Icons/Settings";
 import { type FullTweetData } from "@/lib/types/tweets";
 import Link from "next/link";
-import { UserSession } from "@/lib/types/user";
 
 interface Props extends FullTweetData {
-    userData:UserSession
-    authentication:boolean
     isUserLiked:boolean
 }
 
@@ -26,11 +23,8 @@ export default function Tweet({
     comments,
     views,
     shares,
-    userData,
-    authentication,
     isUserLiked
 }:Props) {
-
     return (
         <Link href={`/tweet/${_id}`}>
             <div className="hover_effect_light hover_effect_transition flex border_bottom pt-2 pb-3 px-4">
