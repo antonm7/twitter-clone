@@ -1,6 +1,7 @@
 import { connectToDatabase } from "@/lib/mongodb";
 import { InsertedLike } from "@/lib/types/like";
 import { FullCommentData } from "@/lib/types/tweets";
+import { FullUserDocument } from "@/lib/types/user";
 import { ObjectId } from "mongodb";
 import { NextResponse } from "next/server";
 import z from 'zod';
@@ -37,7 +38,8 @@ export async function POST(req:Request) {
             like(),
             updateTweetLikes()
         ]) as unknown as {status:'fullfiled' | 'rejected',value:{insertedId:ObjectId}}[]
- 
+
+        console.log(like_methods)
 
         return NextResponse.json({
             ok:true,
