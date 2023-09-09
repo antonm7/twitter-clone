@@ -8,8 +8,6 @@ import { ProfileImage } from "@/components/common/ProfileImageCircle";
 import { connectToDatabase } from "@/lib/mongodb"
 import { type FullTweetData } from "@/lib/types/tweets";
 import { ObjectId } from "mongodb";
-import { get_tweets } from "@/lib/requests/tweet";
-import { useEffect } from "react";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 
@@ -45,38 +43,38 @@ export default async function TweetPage({params}:PageProps) {
 
     return (
         <>  
-            <DefaultHeader title="Tweet"/>
-            <div className="px-4">
-                <div className="flex items-center">
-                    <ProfileImage 
-                        active_user_window={true} 
-                        size="sm"
-                        username={tweet_data.user_username}
-                        url={tweet_data.user_img}
-                    />
-                    <div className="pl-3">
-                        <h2 className="block font-bold">{tweet_data.user_name}</h2>
-                        <h3 className="text-sm sub_text">@{tweet_data.user_username}</h3>
+                <DefaultHeader title="Tweet"/>
+                <div className="px-4">
+                    <div className="flex items-center">
+                        <ProfileImage 
+                            active_user_window={true} 
+                            size="sm"
+                            username={tweet_data.user_username}
+                            url={tweet_data.user_img}
+                        />
+                        <div className="pl-3">
+                            <h2 className="block font-bold">{tweet_data.user_name}</h2>
+                            <h3 className="text-sm sub_text">@{tweet_data.user_username}</h3>
+                        </div>
                     </div>
+                    <p className="pt-4">{tweet_data.text}</p>
+                    <CreatedInformation 
+                        hour={"3:25 PM"} 
+                        date={"Aug 16, 2023"} 
+                        views={4223}                    
+                    />
+                    <Hr style={{marginTop:'1rem',marginBottom:'1rem'}}/>
+                    <StatsInformation 
+                        retweets={3} 
+                        likes={111} 
+                        bookmarks={0} 
+                    />
+                    <Hr style={{marginTop:'1rem',marginBottom:'0.1rem'}}/>
+                    <Actions tweetData={tweet_data}/>
+                    <Hr style={{marginTop:'0.1rem'}}/>
                 </div>
-                <p className="pt-4">{tweet_data.text}</p>
-                <CreatedInformation 
-                    hour={"3:25 PM"} 
-                    date={"Aug 16, 2023"} 
-                    views={4223}                    
-                />
-                <Hr style={{marginTop:'1rem',marginBottom:'1rem'}}/>
-                <StatsInformation 
-                    retweets={3} 
-                    likes={111} 
-                    bookmarks={0} 
-                />
-                <Hr style={{marginTop:'1rem',marginBottom:'0.1rem'}}/>
-                <Actions tweetData={tweet_data}/>
-                <Hr style={{marginTop:'0.1rem'}}/>
-            </div>
-            <Reply tweetData={tweet_data}/>
-            <CommentsList parentTweet={tweet_data._id} userSession={session}/>
+                <Reply tweetData={tweet_data}/>
+                <CommentsList parentTweet={tweet_data._id} userSession={session}/>
         </>
     )
     
