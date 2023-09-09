@@ -42,8 +42,6 @@ export default function TweetsSection({authenticated,userData}:Props) {
             : null }
             {loading ? <h1>Loading...</h1> : tweetsList?.map(tweet => (
                 <Tweet
-                    userData={userData as unknown as UserSession}
-                    authentication={authenticated}
                     key={JSON.stringify(tweet._id)}
                     _id={tweet._id}
                     text={tweet.text}
