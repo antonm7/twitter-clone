@@ -4,23 +4,26 @@ import { Comments } from "../Home/Tweet/Actions/Comments"
 import { Like } from "../Home/Tweet/Actions/Like"
 import { Retweet } from "../Home/Tweet/Actions/Retweet"
 import { Share } from "../Home/Tweet/Actions/Share"
+import { Session } from "next-auth/core/types"
 
 type Props = {
     tweetData:FullTweetData
+    userSession:Session | null
+    isUserLiked:boolean
 }
 
-export function Actions({tweetData}:Props) {
+export function Actions({tweetData,userSession,isUserLiked}:Props) {
     return (
-        <div >
+        <div>
             <div className="flex items-center justify-between">
                 <Comments size="lg" tweetData={tweetData} />
                 <Retweet size="lg" retweets={tweetData.retweets}/>
                 <Like 
                     size="lg" 
                     parentTweet={tweetData._id.toString()} 
-                    userId={""}
+                    userId={userSession ? userSession.user._id : ''}
                     likes={0}
-                    isUserLiked={false}/>
+                    isUserLiked={isUserLiked}/>
                 <Bookmark size="lg"/>
                 <Share size="lg"/>
             </div>
