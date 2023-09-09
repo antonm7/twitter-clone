@@ -10,13 +10,34 @@ import { type FullTweetData } from "@/lib/types/tweets";
 import { ObjectId } from "mongodb";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
+import { FullUserDocument } from "@/lib/types/user";
+import { FullLikeData } from "@/lib/types/like";
 
-async function get_tweet_data(id:string):Promise<null | FullTweetData> {
+type ReturnBody = {
+    tweet_data:FullTweetData
+    user_liked:boolean
+}
+
+async function get_tweet_data(id:string,userId:string | null):Promise<ReturnBody | null> {
     try {
         const db = await connectToDatabase();
+        
         const tweet = await db.collection<FullTweetData>('tweets')
         .findOne({_id:new ObjectId(id)})
-        return tweet
+
+        let user_liked:boolean = false
+
+        if(userId) {
+            const is_user_liked = await db.collection<FullLikeData>('likes').findOne({
+                userId,
+                parentTweet:id
+            })
+            if(is_user_liked) {
+                user_liked = true
+            }
+        }
+        return {tweet_data:tweet as unknown as FullTweetData ,user_liked}
+
     } catch(e) {
         return null
     }
@@ -29,10 +50,10 @@ type PageProps = {
 }
 
 export default async function TweetPage({params}:PageProps) {
-    const tweet_data = await get_tweet_data(params.id)
     const session = await getServerSession(authOptions)
+    const data = await get_tweet_data(params.id,session?.user ? session?.user._id.toString() : null)
 
-    if(!tweet_data) return (
+    if(!data?.tweet_data) return (
         <>
             <DefaultHeader title="Tweet"/>
             <div className="p-4">
@@ -49,15 +70,15 @@ export default async function TweetPage({params}:PageProps) {
                         <ProfileImage 
                             active_user_window={true} 
                             size="sm"
-                            username={tweet_data.user_username}
-                            url={tweet_data.user_img}
+                            username={data.tweet_data.user_username}
+                            url={data.tweet_data.user_img}
                         />
                         <div className="pl-3">
-                            <h2 className="block font-bold">{tweet_data.user_name}</h2>
-                            <h3 className="text-sm sub_text">@{tweet_data.user_username}</h3>
+                            <h2 className="block font-bold">{data.tweet_data.user_name}</h2>
+                            <h3 className="text-sm sub_text">@{data.tweet_data.user_username}</h3>
                         </div>
                     </div>
-                    <p className="pt-4">{tweet_data.text}</p>
+                    <p className="pt-4">{data.tweet_data.text}</p>
                     <CreatedInformation 
                         hour={"3:25 PM"} 
                         date={"Aug 16, 2023"} 
@@ -70,11 +91,11 @@ export default async function TweetPage({params}:PageProps) {
                         bookmarks={0} 
                     />
                     <Hr style={{marginTop:'1rem',marginBottom:'0.1rem'}}/>
-                    <Actions tweetData={tweet_data}/>
+                    <Actions isUserLiked={data.user_liked} userSession={session} tweetData={data.tweet_data}/>
                     <Hr style={{marginTop:'0.1rem'}}/>
                 </div>
-                <Reply tweetData={tweet_data}/>
-                <CommentsList parentTweet={tweet_data._id} userSession={session}/>
+                <Reply tweetData={data.tweet_data}/>
+                <CommentsList parentTweet={data.tweet_data._id} userSession={session}/>
         </>
     )
     
