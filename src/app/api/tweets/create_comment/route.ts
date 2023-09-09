@@ -48,7 +48,7 @@ export async function POST(req:Request,res:NextApiResponse) {
         const inserted_comment = await db.collection<InsertedComment>('comments')
         .insertOne(comment_object)
 
-        const updated_user = await db.collection<FullUserDocument>('users')
+        await db.collection<FullUserDocument>('users')
         .updateOne({_id:new ObjectId(userId)},{$push:
             {comments:JSON.stringify(inserted_comment.insertedId)}})
 
@@ -56,15 +56,10 @@ export async function POST(req:Request,res:NextApiResponse) {
         await db.collection<FullTweetData>('tweets')
         .updateOne({_id:new ObjectId(parentTweet)},{$inc:{comments:1}})
 
-        const inserted_comment_data = await db.collection<FullTweetData>('tweets')
-        .findOne({_id: new ObjectId(inserted_comment.insertedId)})
+        const inserted_comment_data = await db.collection<FullTweetData>('comments')
+        .findOne({_id: inserted_comment.insertedId})
 
-        if(updated_user.acknowledged) {
-            return NextResponse.json({ok:true,tweet:inserted_comment_data},{status:201})
-        } else {
-            throw new Error('User did not updated')
-        }
-        
+        return NextResponse.json({ok:true,comment:inserted_comment_data},{status:201})
     } catch(e) {
         console.log('error on create_tweet Post request', e)
         return NextResponse.error()
