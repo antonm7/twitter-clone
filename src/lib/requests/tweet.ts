@@ -23,7 +23,7 @@ export async function post_comment({
         })
         const response = await request.json()
         if(response.ok) {
-            return {error:false} 
+            return {error:false,data:response.comment} 
         } else {
             throw new Error('Unexpected Error')
         }

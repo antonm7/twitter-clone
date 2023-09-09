@@ -5,8 +5,9 @@ import { useSession } from "next-auth/react";
 import TextArea from "../Home/CreateTweet/TextArea";
 import { StyledButtonBlue } from "@/components/common/StyledButton";
 import { useState } from "react";
-import type { TweetDataForClient } from "@/lib/types/tweets";
+import type { FullCommentData, TweetDataForClient } from "@/lib/types/tweets";
 import { post_comment } from "@/lib/requests/tweet";
+import { useCommentsListStore } from "@/store/CommentsList";
 
 type Props = {
     tweetData:TweetDataForClient
@@ -16,16 +17,18 @@ export function Reply({tweetData}:Props) {
     const session = useSession()
     const [text,setText] = useState<string>('')
 
+    const insertComment = useCommentsListStore(state => state.insertComment)
+
     const handle_post_comment = async () => {
         const action = await post_comment({
             userId:session.data?.user._id || '',
             text,
             parentTweet:tweetData._id || ''
         })
-        if(!action.error) {
+        if(action.error) {
             alert('Error')
         } else {
-            alert('nice,posted!')
+            insertComment(action.data as FullCommentData)
         }
     }
 
