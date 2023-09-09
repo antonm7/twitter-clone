@@ -52,7 +52,7 @@ export function AddComment({active,tweetData}:Props) {
 export function MinimizedTweet({tweetData}:{tweetData:TweetDataForClient}) {
     return (
             <div className="flex pt-6 overflow-hidden">
-                <div className="max-h-full ">
+                <div className="max-h-full min-h-[4rem]">
                     <ProfileImage 
                         active_user_window={false}
                         username={tweetData.user_username}
