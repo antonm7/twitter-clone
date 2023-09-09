@@ -15,7 +15,7 @@ export async function GET(req:Request,res:NextApiResponse) {
         if(!parent_tweet || typeof parent_tweet !== 'string') return NextResponse.error()
 
         const comments = await db.collection<FullCommentData>('comments')
-        .find({parent_tweet}).toArray()
+        .find({parent_tweet}).limit(10).sort({createdAt: -1 }).toArray()
 
         const comments_ids = [...comments.map(t => t._id.toString())]
 
