@@ -6,6 +6,7 @@ import Tweet from "../Tweet";
 import CreateTweet from "../CreateTweet";
 import { UserSession } from "@/lib/types/user";
 import { get_tweets } from "@/lib/requests/tweet";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 
 type Props = {
     authenticated:boolean
@@ -16,6 +17,8 @@ export default function TweetsSection({authenticated,userData}:Props) {
     const [tweetsList, setTweetsList] = useState<FullTweetData[]>([])
     const [loading, setLoading] = useState<boolean>(true)
     const [likedTweets, setLikedTweets] = useState<string[]>([])
+
+    const [parent] = useAutoAnimate()
 
     useEffect(() => {
         async function get_tweets_handle() {
@@ -30,7 +33,7 @@ export default function TweetsSection({authenticated,userData}:Props) {
     },[])
 
     return (
-        <>
+        <div ref={parent}>
             {authenticated && userData ? 
                 <CreateTweet 
                     userData={userData}
@@ -57,6 +60,6 @@ export default function TweetsSection({authenticated,userData}:Props) {
                     isUserLiked={likedTweets.includes(tweet._id.toString())}                
                 />
             ))}
-        </>
+        </div>
     )
 }
