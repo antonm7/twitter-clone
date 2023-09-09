@@ -1,7 +1,5 @@
 import { connectToDatabase } from "@/lib/mongodb";
-import { FullUserDocument } from "@/lib/types/user";
 import { hash } from "bcrypt";
-import { type NextApiRequest, type NextApiResponse } from "next";
 import { NextResponse } from "next/server";
 
 export const config = {
@@ -10,10 +8,17 @@ export const config = {
     },
   };
 
-export async function POST(req:Request, res:NextApiResponse) {
+type reqBody = {
+    email:string
+    password:string
+    name:string
+    username:string
+    profile_image?:string
+}
+
+export async function POST(req:Request) {
     try {
-        const {email, password,name, username,profile_image}:
-        {email:string, password:string,name:string, username:string,profile_image?:string} = await req.json()
+        const {email, password,name, username,profile_image}:reqBody = await req.json()
 
         const db = await connectToDatabase()
 
@@ -38,9 +43,7 @@ export async function POST(req:Request, res:NextApiResponse) {
         return NextResponse.json({user:{username, name, email}})
         
     } catch(e) {
-        console.log(e)
         NextResponse.error()
     }
-
 }
 

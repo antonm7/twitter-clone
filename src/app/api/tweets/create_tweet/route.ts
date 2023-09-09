@@ -45,19 +45,15 @@ export async function POST(req:Request,res:NextApiResponse) {
 
         const inserted_tweet = await db.collection('tweets').insertOne(tweet_object)
 
-        const updated_user = await db.collection<FullUserDocument>('users')
-        .updateOne({_id:new ObjectId(userId)},{$pull:{tweets:JSON.stringify(inserted_tweet.insertedId)}})
+        await db.collection<FullUserDocument>('users')
+        .updateOne({_id:new ObjectId(userId)},{$pull:
+            {tweets:JSON.stringify(inserted_tweet.insertedId)
+        }})
 
         const inserted_tweet_data = await db.collection<FullTweetData>('tweets')
         .findOne({_id: new ObjectId(inserted_tweet.insertedId)})
 
-        if(updated_user.acknowledged) {
-            return NextResponse.json({ok:true,tweet:inserted_tweet_data},{status:201})
-        } else {
-            throw new Error('User did not updated')
-        }
-
-
+        return NextResponse.json({ok:true,tweet:inserted_tweet_data},{status:201})
     } catch(e) {
         console.log('error on create_tweet Post request', e)
         return NextResponse.error()

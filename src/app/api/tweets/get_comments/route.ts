@@ -2,10 +2,9 @@ import { url_parse } from "@/lib/helpers";
 import { connectToDatabase } from "@/lib/mongodb";
 import { FullLikeData } from "@/lib/types/like";
 import type { FullCommentData } from "@/lib/types/tweets";
-import { NextApiResponse } from "next";
 import { NextResponse } from "next/server";
 
-export async function GET(req:Request,res:NextApiResponse) {
+export async function GET(req:Request) {
     try {
         const parsed = url_parse(req.url as string)
         const parent_tweet = parsed.parentTweet
@@ -23,8 +22,6 @@ export async function GET(req:Request,res:NextApiResponse) {
         .find({userId:parsed.userId,parentTweet:{$in:comments_ids}}).toArray() : []
 
         const only_liked_comments_ids:string[] = liked_comments.length ? [...liked_comments.map(t => t.parentTweet)] : []
-
-        console.log(parsed.userId)
 
         return NextResponse.json({
             ok:true,comments,

@@ -13,10 +13,13 @@ export async function GET(req:Request,res:NextApiResponse) {
 
         const userId = parsed.userId as string
 
+        if(!userId || typeof userId !== 'string') return NextResponse.error()
+
         const db = await connectToDatabase()
         
         const user = await db.collection<FullUserDocument>('users')
         .findOne({ _id: new ObjectId(userId) });
+        
         if(!user) throw new Error()
 
         const following = user.following;

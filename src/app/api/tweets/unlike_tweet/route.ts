@@ -25,20 +25,17 @@ export async function POST(req:Request,res:NextApiResponse) {
 
         const {userId, parentTweet} = validate_body.data
 
-        const like = await db.collection<InsertedLike>('likes').deleteOne({
-            userId,
-            parentTweet
-        })
+        await Promise.allSettled([
+            db.collection<InsertedLike>('likes').deleteOne({
+                userId,
+                parentTweet
+            }),
+            db.collection<FullCommentData>('tweets').updateOne({
+                _id:new ObjectId(parentTweet)
+            }, {$inc:{likes: -1}})
+        ])
 
-        await db.collection<FullCommentData>('tweets').updateOne({
-            _id:new ObjectId(parentTweet)
-        }, {$inc:{likes: -1}})
-
-        if(like.acknowledged) {
-            return NextResponse.json({ok:true})
-        } else {
-            throw new Error('Like did not inserted')
-        }
+        return NextResponse.json({ok:true})
     } catch(e) {
         console.log('error on inserting like_tweet',e)
         return NextResponse.error()

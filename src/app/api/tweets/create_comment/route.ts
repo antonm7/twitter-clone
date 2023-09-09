@@ -15,7 +15,6 @@ export async function POST(req:Request,res:NextApiResponse) {
             parentTweet:z.string(),
             text:z.string().max(124).min(1)
         })
-
         
         const validate_result = schema.safeParse(body)
         
@@ -48,13 +47,15 @@ export async function POST(req:Request,res:NextApiResponse) {
         const inserted_comment = await db.collection<InsertedComment>('comments')
         .insertOne(comment_object)
 
-        await db.collection<FullUserDocument>('users')
-        .updateOne({_id:new ObjectId(userId)},{$push:
+        await Promise.allSettled([
+            // updating parent tweet (inc) number of comments
+            await db.collection<FullTweetData>('tweets')
+            .updateOne({_id:new ObjectId(parentTweet)},{$inc:{comments:1}}),
+            // pushing the comment id into the user document
+            await db.collection<FullUserDocument>('users')
+            .updateOne({_id:new ObjectId(userId)},{$push:
             {comments:JSON.stringify(inserted_comment.insertedId)}})
-
-        // updating parent tweet (inc) number of comments
-        await db.collection<FullTweetData>('tweets')
-        .updateOne({_id:new ObjectId(parentTweet)},{$inc:{comments:1}})
+        ])
 
         const inserted_comment_data = await db.collection<FullTweetData>('comments')
         .findOne({_id: inserted_comment.insertedId})
