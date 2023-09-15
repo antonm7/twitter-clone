@@ -18,7 +18,8 @@ export function TurnOnHiddenLayerWrapper({children,
     closeable}:Props) {
     const hiddenLayerStore = useHiddenLayerStore(state => state)
 
-    const turnOnActive = () => {
+    const turnOnActive = (e:React.MouseEvent) => {
+        e.preventDefault()
         if(hiddenLayerStore.visibility) return
         onActive(true)
         hiddenLayerStore.changeVisibility(true, bg ? true : false)
@@ -32,7 +33,7 @@ export function TurnOnHiddenLayerWrapper({children,
 
     return (
         <div className={className} 
-            onClick={() => turnOnActive()}>
+            onClick={(e) => turnOnActive(e)}>
             {children}
         </div>
     )

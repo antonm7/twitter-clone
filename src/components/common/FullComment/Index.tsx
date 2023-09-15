@@ -1,8 +1,8 @@
-
 import { FullCommentData } from "@/lib/types/tweets";
 import { SettingsWithBackground } from "../Icons/Settings";
 import { BottomBar } from "@/components/Pages/Home/Tweet/BottomBar";
 import { ProfileImage } from "../ProfileImageCircle";
+import { TweetOptions } from "@/components/Pages/Home/Tweet/TweetOptions";
 
 type Props = {
     commentData:FullCommentData
@@ -25,7 +25,9 @@ export function FullComment({commentData,likedComments}:Props) {
                             <span className="text-sm sub_text pr-1">@{commentData.user_username}</span>
                             <span className="text-sm sub_text">- 4m</span>
                         </div>
-                        <SettingsWithBackground />
+                        <SettingsWithBackground>
+                            <TweetOptions active={false}/>
+                        </SettingsWithBackground>
                     </div>
                     <div className="text-md block">
                         <p>{commentData.text}</p>
@@ -33,7 +35,7 @@ export function FullComment({commentData,likedComments}:Props) {
                     <BottomBar 
                         size="sm"
                         tweetData={{
-                            _id: commentData._id,
+                            _id: commentData._id.toString(),
                             userId: commentData.userId,
                             user_img: commentData.user_img,
                             user_name: commentData.user_name,
