@@ -13,7 +13,7 @@ const load_comments = async (parentTweet:string,userId?:string) => {
     return await get_comments({parentTweet,userId})
 }
 
-export function CommentsList({parentTweet, userSession}:{parentTweet:string | ObjectId,userSession:Session | null}) {
+export function CommentsList({parentTweet, userSession}:{parentTweet:string,userSession:Session | null}) {
     const [loading, setLoading] = useState<boolean>(true)
     const [likedComments, setLikedComments] = useState<string[]>([])
 

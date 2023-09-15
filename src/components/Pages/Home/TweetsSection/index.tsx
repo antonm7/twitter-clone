@@ -1,12 +1,12 @@
 'use client';
 
-import { type FullTweetData } from "@/lib/types/tweets";
 import { useEffect, useState } from "react";
 import Tweet from "../Tweet";
 import CreateTweet from "../CreateTweet";
 import { UserSession } from "@/lib/types/user";
 import { get_tweets } from "@/lib/requests/tweet";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
+import { useTweetsListState } from "@/store/TweetsList";
 
 type Props = {
     authenticated:boolean
@@ -14,9 +14,9 @@ type Props = {
 }
 
 export default function TweetsSection({authenticated,userData}:Props) {
-    const [tweetsList, setTweetsList] = useState<FullTweetData[]>([])
-    const [loading, setLoading] = useState<boolean>(true)
     const [likedTweets, setLikedTweets] = useState<string[]>([])
+    const tweetsListStore = useTweetsListState(state => state)
+    const [loading, setLoading] = useState<boolean>(tweetsListStore.list.length ? false : true)
 
     const [parent] = useAutoAnimate()
 
@@ -24,12 +24,14 @@ export default function TweetsSection({authenticated,userData}:Props) {
         async function get_tweets_handle() {
             const req = await get_tweets(authenticated ? userData?._id.toString()! : null)
             if(!req.error) {
-                setTweetsList(req.data.tweets)
+                tweetsListStore.setList(req.data.tweets)
                 setLikedTweets(req.data.liked_tweets)
             } 
             setLoading(false)
         }   
-        get_tweets_handle() 
+        if(!tweetsListStore.list.length) {
+            get_tweets_handle() 
+        }
     },[])
 
     return (
@@ -37,13 +39,13 @@ export default function TweetsSection({authenticated,userData}:Props) {
             {authenticated && userData ? 
                 <CreateTweet 
                     userData={userData}
-                    insertedTweet={newTweet => setTweetsList([newTweet,...tweetsList])}
+                    insertedTweet={newTweet => tweetsListStore.insertTweet(newTweet)}
                 />
             : null }
-            {loading ? <h1>Loading...</h1> : tweetsList?.map(tweet => (
+            {loading ? <h1>Loading...</h1> : tweetsListStore.list?.map(tweet => (
                 <Tweet
-                    key={JSON.stringify(tweet._id)}
-                    _id={tweet._id}
+                    key={tweet._id.toString()}
+                    _id={tweet._id.toString()}
                     text={tweet.text}
                     likes={tweet.likes}
                     retweets={tweet.retweets}
