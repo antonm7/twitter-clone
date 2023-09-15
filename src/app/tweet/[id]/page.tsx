@@ -10,7 +10,6 @@ import { type FullTweetData } from "@/lib/types/tweets";
 import { ObjectId } from "mongodb";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
-import { FullUserDocument } from "@/lib/types/user";
 import { FullLikeData } from "@/lib/types/like";
 
 type ReturnBody = {
@@ -95,7 +94,7 @@ export default async function TweetPage({params}:PageProps) {
                     <Hr style={{marginTop:'0.1rem'}}/>
                 </div>
                 <Reply tweetData={data.tweet_data}/>
-                <CommentsList parentTweet={data.tweet_data._id} userSession={session}/>
+                <CommentsList parentTweet={data.tweet_data._id.toString()} userSession={session}/>
         </>
     )
     
