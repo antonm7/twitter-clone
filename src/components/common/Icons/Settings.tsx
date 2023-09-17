@@ -15,6 +15,11 @@ type Props = {
     color?:'white'
 }
 
+type SettingsIconProps = {
+    onClick?:() => void
+    color?:'white'
+}
+
 export function SettingsWithBackground ({onClick, children}:Props) {
     const [active, setActive] = useState<boolean>(false)
     // Rendering any additional window
@@ -39,6 +44,6 @@ export function SettingsWithBackground ({onClick, children}:Props) {
     )
 }
 
-export function SettingsIcon({onClick,color}:Props) {
+export function SettingsIcon({onClick,color}:SettingsIconProps) {
     return <HiDotsHorizontal onClick={onClick} className={`text-base ${color === 'white' ? 'text-white' : 'sub_text'}`}/>
 }
