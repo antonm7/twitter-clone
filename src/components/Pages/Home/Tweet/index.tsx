@@ -36,7 +36,7 @@ export default function Tweet({
                             <span className="text-sm sub_text pr-1">@{user_username}</span>
                             <span className="text-sm sub_text">- 4m</span>
                         </div>
-                        <SettingsWithBackground />
+                        <SettingsWithBackground children={<div>321</div>}/>
                     </div>
                     <div className="text-md block max-w-full overflow-hidden">
                         <p className="h-auto max-w-full break-all">{text}</p>
