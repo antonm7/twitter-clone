@@ -1,12 +1,12 @@
-import { connectToDatabase } from "@/lib/mongodb";
-import { FullLikeData, InsertedLike } from "@/lib/types/like";
-import { FullCommentData, InsertedTweet } from "@/lib/types/tweets";
+import clientPromise from "@/lib/mongodb";
+import { InsertedLike } from "@/lib/types/like";
+import { FullCommentData } from "@/lib/types/tweets";
 import { ObjectId } from "mongodb";
-import type { NextApiRequest, NextApiResponse } from "next";
-import { NextResponse } from "next/server";
+import type { NextApiResponse } from "next";
+import { NextRequest, NextResponse } from "next/server";
 import z from 'zod';
 
-export async function POST(req:Request,res:NextApiResponse) {
+export async function POST(req:NextRequest,res:NextApiResponse) {
     try {   
         const body = await req.json()
 
@@ -21,7 +21,8 @@ export async function POST(req:Request,res:NextApiResponse) {
             return NextResponse.json({error:'Invalid Request'})
         }
 
-        const db = await connectToDatabase()
+        const client = await clientPromise
+        const db = client.db(process.env.DATABASE_NAME)
 
         const {userId, parentTweet} = validate_body.data
 

@@ -1,12 +1,6 @@
-import { connectToDatabase } from "@/lib/mongodb";
+import clientPromise from "@/lib/mongodb";
 import { hash } from "bcrypt";
 import { NextResponse } from "next/server";
-
-export const config = {
-    api: { 
-      bodyParser: true,
-    },
-  };
 
 type reqBody = {
     email:string
@@ -20,7 +14,8 @@ export async function POST(req:Request) {
     try {
         const {email, password,name, username,profile_image}:reqBody = await req.json()
 
-        const db = await connectToDatabase()
+        const client = await clientPromise
+        const db = client.db(process.env.DATABASE_NAME)
 
         await db.collection('users').insertOne({
             email,

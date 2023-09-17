@@ -1,7 +1,7 @@
 import NextAuth from 'next-auth'
 import type { Awaitable, DefaultSession, NextAuthOptions, RequestInternal, User,DefaultUser } from 'next-auth'
 import CredentialsProviders from 'next-auth/providers/credentials'
-import { connectToDatabase } from './mongodb'
+import clientPromise from './mongodb'
 import {compare} from 'bcrypt'
 import { type FullUserDocument, type UserSession } from './types/user'
 
@@ -47,7 +47,9 @@ export const authOptions:NextAuthOptions = {
                 try {
                     if(!credentials?.email || !credentials.password) throw new Error('Please provide email and password')
 
-                    const db = await connectToDatabase();
+                    const client = await clientPromise
+                    const db = client.db(process.env.DATABASE_NAME)
+                    
                     const users = await db.collection('users');
 
                     const results = await users.findOne({email: credentials.email}) as null | FullUserDocument;

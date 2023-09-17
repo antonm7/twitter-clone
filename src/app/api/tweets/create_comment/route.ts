@@ -1,4 +1,4 @@
-import { connectToDatabase } from "@/lib/mongodb";
+import clientPromise from "@/lib/mongodb";
 import { FullTweetData, InsertedComment, InsertedTweet } from "@/lib/types/tweets";
 import { FullUserDocument } from "@/lib/types/user";
 import { ObjectId } from "mongodb";
@@ -22,7 +22,8 @@ export async function POST(req:Request,res:NextApiResponse) {
             return NextResponse.json({ error: 'Invalid Request' }, { status: 400 })
         }
 
-        const db = await connectToDatabase()
+        const client = await clientPromise
+        const db = client.db(process.env.DATABASE_NAME)
         
         const {userId, text, parentTweet } = validate_result.data
 

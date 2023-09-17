@@ -1,5 +1,6 @@
+export const dynamic = "force-dynamic";
 import { url_parse } from "@/lib/helpers";
-import { connectToDatabase } from "@/lib/mongodb";
+import clientPromise from "@/lib/mongodb";
 import { FullLikeData } from "@/lib/types/like";
 import { FullTweetData } from "@/lib/types/tweets";
 import { FullUserDocument } from "@/lib/types/user";
@@ -8,19 +9,35 @@ import { NextApiResponse } from "next";
 import { NextResponse } from "next/server";
 
 export async function GET(req:Request,res:NextApiResponse) {
-    try {
+  try {
+      
         const parsed = url_parse(req.url as string)
 
         const userId = parsed.userId as string
 
-        if(!userId || typeof userId !== 'string') return NextResponse.error()
+        if(!userId || typeof userId !== 'string') return NextResponse.json({
+          ok:true,
+          data: {
+              tweets:[],
+              liked_tweets:[]
+          }
+        });
 
-        const db = await connectToDatabase()
+        const client = await clientPromise
+        const db = client.db(process.env.DATABASE_NAME)
         
         const user = await db.collection<FullUserDocument>('users')
         .findOne({ _id: new ObjectId(userId) });
-        
-        if(!user) throw new Error()
+
+        if(!user?.following) {
+          return NextResponse.json({
+            ok:true,
+            data: {
+                tweets:[],
+                liked_tweets:[]
+            }
+          });
+        }
 
         const following = user.following;
         
