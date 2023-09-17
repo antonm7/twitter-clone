@@ -77,9 +77,27 @@ export async function get_stats({parentTweet,userId}:
 
 export async function get_tweets(userId:string | null):Promise<ResponseObject> {
     try {
-        const request = await fetch(`http://localhost:3000/api/tweets/get_tweets?userId=${userId}`,{
+        const request = await fetch(`/api/tweets/get_tweets?userId=${userId}`,{
             method:"GET"
         })
+        const response = await request.json()
+        if(response.ok) {
+            return {error:false,data:response.data}
+        }
+        else {
+            throw new Error('Unexpected Error')
+        } 
+        } catch(e) {
+        return {error:e as string}
+    }
+} 
+
+export async function get_tweet(tweetId:string,userId?:string):Promise<ResponseObject> {
+    try {
+        const request = await fetch(`/api/tweets/get_tweet?userId=${userId}&tweetId=${tweetId}`,{
+            method:"GET"
+        })
+
         const response = await request.json()
         if(response.ok) {
             return {error:false,data:response.data}
