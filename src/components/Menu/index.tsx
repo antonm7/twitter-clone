@@ -33,19 +33,19 @@ export default async function Menu() {
                 /> 
                 <Tab 
                     title='Notifications'
-                    to={'/notifications'}
+                    to={'/'}
                     Icon={<Notifications />}
                     ActiveIcon={<ActiveNotifications />}
                 /> 
                 <Tab 
                     title='Messages'
-                    to={'/messages'}
+                    to={'/'}
                     Icon={<Messages />}
                     ActiveIcon={<ActiveMessages />}
                 /> 
                  <Tab 
                     title='Bookmarks'
-                    to={'/bookmarks'}
+                    to={'/'}
                     Icon={<Bookmark />}
                     ActiveIcon={<ActiveBookmark />}
                 /> 
