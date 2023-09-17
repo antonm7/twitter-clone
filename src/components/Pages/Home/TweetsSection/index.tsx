@@ -35,31 +35,33 @@ export default function TweetsSection({authenticated,userData}:Props) {
     },[])
 
     return (
-        <div ref={parent}>
+        <>
             {authenticated && userData ? 
                 <CreateTweet 
                     userData={userData}
                     insertedTweet={newTweet => tweetsListStore.insertTweet(newTweet)}
                 />
-            : null }
-            {loading ? <h1>Loading...</h1> : tweetsListStore.list?.map(tweet => (
-                <Tweet
-                    key={tweet._id.toString()}
-                    _id={tweet._id.toString()}
-                    text={tweet.text}
-                    likes={tweet.likes}
-                    retweets={tweet.retweets}
-                    userId={tweet.userId}
-                    createdAt={tweet.createdAt}
-                    user_name={tweet.user_name}
-                    user_username={tweet.user_username}
-                    user_img={tweet.user_img}
-                    comments={tweet.comments} 
-                    shares={tweet.shares} 
-                    views={tweet.views}   
-                    isUserLiked={likedTweets.includes(tweet._id.toString())}                
-                />
-            ))}
-        </div>
+            : null}
+            <div ref={parent}>
+                {loading ? <h1>Loading...</h1> : tweetsListStore.list.map(tweet => (
+                    <Tweet
+                        key={tweet._id.toString()}
+                        _id={tweet._id.toString()}
+                        text={tweet.text}
+                        likes={tweet.likes}
+                        retweets={tweet.retweets}
+                        userId={tweet.userId}
+                        createdAt={tweet.createdAt}
+                        user_name={tweet.user_name}
+                        user_username={tweet.user_username}
+                        user_img={tweet.user_img}
+                        comments={tweet.comments} 
+                        shares={tweet.shares} 
+                        views={tweet.views}   
+                        isUserLiked={likedTweets.includes(tweet._id.toString())}                
+                    />
+                ))}
+            </div>
+        </>
     )
 }
