@@ -1,5 +1,7 @@
 import { type IconType } from 'react-icons/lib';
 import styles from './index.module.scss';
+import React from 'react';
+import { useHiddenLayerStore } from '@/store/HiddenLayer';
 
 type Props = {
     active:boolean
@@ -14,7 +16,7 @@ export function OptionsWindow({active,children,translateY,translateX,width}:Prop
 
     return (
         <div 
-            className='cursor-pointer absolute z-50 h-min left-0 rounded-xl tab_border'
+            className='absolute z-50 cursor-pointer h-min left-0 rounded-xl tab_border hover:bg-red-200'
             id={styles.wrapper} 
             style={{
                 width:width ? width : '24rem',
@@ -33,8 +35,14 @@ type LineProps = {
 }
 
 export function Line({title,icon,onClick}:LineProps){
+    const changeVisibility =  useHiddenLayerStore(state => state.changeVisibility)
+    const method = () => {
+        changeVisibility(false)
+        onClick ? onClick() : null
+    }
+    
     return (
-        <div onClick={onClick} className={`cursor-pointer p-4 flex items-center hover_effect hover_effect_transition`}>
+        <div onClick={() => method()} className={`z-50 cursor-pointer p-4 flex items-center hover_effect hover_effect_transition`}>
             {icon ? icon : null}
             <span className={`text-sm font-semibold ${icon ? 'pl-4' : ''}`}>{title}</span>
         </div>

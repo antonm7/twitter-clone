@@ -11,7 +11,7 @@ type Props = {
 
 export function FullComment({commentData,likedComments}:Props) {
     return (
-        <div>
+        <>
             <div className="hover_effect_light hover_effect_transition flex border_bottom pt-2 pb-3 px-4">
                 <ProfileImage 
                     active_user_window={true} 
@@ -52,6 +52,6 @@ export function FullComment({commentData,likedComments}:Props) {
                     />
                 </div>
             </div>
-        </div>
+        </>
     )
 }

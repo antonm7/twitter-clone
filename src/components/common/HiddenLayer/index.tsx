@@ -1,14 +1,21 @@
 'use client'
-import { useHiddenLayerStore } from '@/store/HiddenLayer';
+import { useHiddenLayerBackground, useHiddenLayerChangeVisibility, useHiddenLayerStore, useHiddenLayerVisibility } from '@/store/HiddenLayer';
 import styles from './index.module.scss';
 import { MouseEventHandler, useEffect, useRef } from 'react';
-import { useRegisterWindowState } from '@/store/registerWindow';
+import { useRegisterWindowChangeLoginVisibility, useRegisterWindowChangeSignupVisibility, useRegisterWindowLoginVisibility, useRegisterWindowState } from '@/store/registerWindow';
+import React from 'react';
 
-export default function HiddenLayer() {
-    const hiddenLayerStore = useHiddenLayerStore(state => state)
-    const loginVisibility = useRegisterWindowState(state => state)
-    const signupVisibility = useRegisterWindowState(state => state)
+function HiddenLayer() {
     const componentRef = useRef<any>(null)
+    
+    const visibility = useHiddenLayerVisibility()
+    const background = useHiddenLayerBackground()
+    const changeVisibility = useHiddenLayerChangeVisibility()
+
+    const loginVisibility = useRegisterWindowLoginVisibility()
+    const signupVisibility = useRegisterWindowState(state => state.signupVisibility)
+    const changeLoginVisibility = useRegisterWindowChangeLoginVisibility()
+    const changeSignupVisibility = useRegisterWindowChangeSignupVisibility()
 
     // Function to identify when click event happens outside
     // of the div element.
@@ -17,23 +24,25 @@ export default function HiddenLayer() {
             !componentRef.current.contains(event.target)) {
             return
         } else {
-            hiddenLayerStore.changeVisibility(false)
-            if(loginVisibility.loginVisibility) {
-                loginVisibility.changeLoginVisibility(false)
-            } else if(signupVisibility.signupVisibility) {
-                signupVisibility.changeSignupVisibility(false)
+            changeVisibility(false)
+            if(loginVisibility) {
+                changeLoginVisibility(false)
+            } else if(signupVisibility) {
+                changeSignupVisibility(false)
             }
         }
     };
     
-    if(!hiddenLayerStore.visibility) return null
+    if(!visibility) return null
 
     return (
         <div 
             onClick={handleClick}
             id={styles.wrapper} 
             className={`fixed w-screen h-screen z-40 
-            ${hiddenLayerStore.background ? 'bg-white opacity-20' : 'bg-transparent'}`}
+            ${background ? 'bg-white opacity-20' : 'bg-transparent'}`}
         />
     )
 }
+
+export default React.memo(HiddenLayer)

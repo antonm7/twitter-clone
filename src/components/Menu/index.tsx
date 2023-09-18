@@ -10,13 +10,19 @@ import TwitterIcon from "./TwitterIcon";
 import User from "./User";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
+import HiddenLayer from "../common/HiddenLayer";
 
 export default async function Menu() {
     const session = await getServerSession(authOptions)
     
     return (
         <div className="w-full max-w-[650px] flex flex-col items-end">
-           <div className="h-full flex flex-col justify-between ml-8 fixed border_right">
+           <div className=" h-full flex flex-col justify-between ml-8 border_right fixed z-20">
+            {/* Moved The hidden layer to here, altough its a global component and was firstly placed inside layout.tsx
+            But it caused a styling bug with fixed position and z-index.
+            "If possible, you can place the overlay div inside the fixed-positioned div 
+            so that the inner div can be above it in the stacking order" */}
+            <HiddenLayer />
             <div className="pr-12">
                 <TwitterIcon />
                 <Tab 

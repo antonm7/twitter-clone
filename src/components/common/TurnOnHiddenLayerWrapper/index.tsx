@@ -1,7 +1,7 @@
 'use client';
 
-import { useHiddenLayerStore } from "@/store/HiddenLayer";
-import { useEffect } from "react";
+import { useHiddenLayerChangeVisibility, useHiddenLayerVisibility } from "@/store/HiddenLayer";
+import React, { useCallback, useEffect } from "react";
 
 type Props = {
     children:React.ReactNode
@@ -11,30 +11,35 @@ type Props = {
     closeable?:boolean
 }
 
-export function TurnOnHiddenLayerWrapper({children,
-    onActive,
-    className,
-    bg,
-    closeable}:Props) {
-    const hiddenLayerStore = useHiddenLayerStore(state => state)
+const WrapperComponent = ({ children, onActive, className, bg, closeable }: Props) => {
+  const visibility = useHiddenLayerVisibility(); // Use selector function
+  const changeVisibility = useHiddenLayerChangeVisibility(); // Use selector function
 
-    const turnOnActive = (e:React.MouseEvent) => {
-        e.preventDefault()
-        if(hiddenLayerStore.visibility) return
-        onActive(true)
-        hiddenLayerStore.changeVisibility(true, bg ? true : false)
+  const onActiveCallback = useCallback(onActive, [onActive]); // Wrap with useCallback
+  const changeVisibilityCallback = useCallback(changeVisibility, [changeVisibility]); // Wrap with useCallback
+
+  useEffect(() => {
+    if (!visibility) {
+      onActiveCallback(false);
     }
+  }, [visibility, onActiveCallback]);
 
-    useEffect(() => {
-        if(!hiddenLayerStore.visibility) {
-            onActive(false)
-        }
-    },[hiddenLayerStore.visibility])
+  const turnOnActive = (e: React.MouseEvent) => {
+    // this e.preventdefault prevents the 'parent container'
+    // of this component to not run its self method
+    // For example, If this component is inside a div with
+    // On Click method, it will not run the onClick function.
+    e.preventDefault();
+    if (visibility) return;
+    onActiveCallback(true);
+    changeVisibilityCallback(true, bg ? true : false);
+  };
 
-    return (
-        <div className={className} 
-            onClick={(e) => turnOnActive(e)}>
-            {children}
-        </div>
-    )
-}
+  return (
+    <div className={className} onClick={(e) => turnOnActive(e)}>
+      {children}
+    </div>
+  );
+};
+
+export const TurnOnHiddenLayerWrapper = React.memo(WrapperComponent);

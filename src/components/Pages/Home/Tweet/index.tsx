@@ -5,6 +5,7 @@ import { BottomBar } from "./BottomBar";
 import { SettingsWithBackground } from "@/components/common/Icons/Settings";
 import { type FullTweetData } from "@/lib/types/tweets";
 import Link from "next/link";
+import { TweetOptions } from "./TweetOptions";
 
 interface Props extends FullTweetData {
     isUserLiked:boolean
@@ -36,7 +37,7 @@ export default function Tweet({
                             <span className="text-sm sub_text pr-1">@{user_username}</span>
                             <span className="text-sm sub_text">- 4m</span>
                         </div>
-                        <SettingsWithBackground children={<div>321</div>}/>
+                        <SettingsWithBackground children={<TweetOptions active={false}/>}/>
                     </div>
                     <div className="text-md block max-w-full overflow-hidden">
                         <p className="h-auto max-w-full break-all">{text}</p>
