@@ -13,3 +13,8 @@ export const useRegisterWindowState = create<State>(set => ({
     changeLoginVisibility: (value:boolean) => set({loginVisibility:value}),
     changeSignupVisibility: (value:boolean) => set({signupVisibility:value})
 }))
+
+export const useRegisterWindowLoginVisibility = () => useRegisterWindowState(state => state.loginVisibility)
+export const useRegisterWindowSignupVisibility = () => useRegisterWindowState(state => state.signupVisibility)
+export const useRegisterWindowChangeSignupVisibility = () => useRegisterWindowState(state => state.changeSignupVisibility)
+export const useRegisterWindowChangeLoginVisibility = () => useRegisterWindowState(state => state.changeLoginVisibility)

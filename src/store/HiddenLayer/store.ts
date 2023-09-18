@@ -18,5 +18,8 @@ export const useHiddenLayerStore = create<State>(set => ({
             visibility:false,
             background:false
         }) 
-    
 }))
+
+export const useHiddenLayerVisibility = () => useHiddenLayerStore(state => state.visibility);
+export const useHiddenLayerChangeVisibility = () => useHiddenLayerStore(state => state.changeVisibility);
+export const useHiddenLayerBackground = () => useHiddenLayerStore(state => state.background)
