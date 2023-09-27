@@ -41,6 +41,22 @@ export type FullCommentData = {
     user_img:string;
 }
 
+export type FullTweetDataForClient = {
+    _id:ObjectId | string;
+    text:string;
+    likes:number;
+    retweets:number;
+    comments:number;
+    shares:number;
+    views:number;
+    userId:string;
+    createdAt:Date;
+    user_name:string;
+    user_username:string;
+    user_img:string;
+    isUserLiked?:boolean;
+}
+
 export type InsertedComment = {
     parent_tweet:string;
     text:string;

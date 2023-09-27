@@ -1,8 +1,8 @@
 'use client'
-import { useHiddenLayerBackground, useHiddenLayerChangeVisibility, useHiddenLayerStore, useHiddenLayerVisibility } from '@/store/HiddenLayer';
-import styles from './index.module.scss';
-import { MouseEventHandler, useEffect, useRef } from 'react';
-import { useRegisterWindowChangeLoginVisibility, useRegisterWindowChangeSignupVisibility, useRegisterWindowLoginVisibility, useRegisterWindowState } from '@/store/registerWindow';
+import { useHiddenLayerBackground, useHiddenLayerChangeVisibility, useHiddenLayerVisibility } from '@/store/HiddenLayer';
+import { MouseEventHandler, useRef } from 'react';
+import { useRegisterWindowChangeLoginVisibility, useRegisterWindowChangeSignupVisibility, 
+    useRegisterWindowLoginVisibility, useRegisterWindowState } from '@/store/registerWindow';
 import React from 'react';
 
 function HiddenLayer() {
@@ -38,10 +38,9 @@ function HiddenLayer() {
     return (
         <div 
             onClick={handleClick}
-            id={styles.wrapper} 
-            className={`fixed w-screen h-screen z-40 
+            className={`fixed left-0 top-0 w-screen h-screen z-40 
             ${background ? 'bg-white opacity-20' : 'bg-transparent'}`}
-        />
+        />  
     )
 }
 

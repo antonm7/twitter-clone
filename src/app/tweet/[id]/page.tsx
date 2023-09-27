@@ -26,7 +26,7 @@ async function get_tweet_data(id:string,userId:string | null):Promise<ReturnBody
         .findOne({_id:new ObjectId(id)})
 
         let user_liked:boolean = false
-
+        console.log('userId:',userId)
         if(userId) {
             const is_user_liked = await db.collection<FullLikeData>('likes').findOne({
                 userId,
@@ -50,7 +50,7 @@ type PageProps = {
 
 export default async function TweetPage({params}:PageProps) {
     const session = await getServerSession(authOptions)
-    const req = await get_tweet_data(params.id, null)
+    const req = await get_tweet_data(params.id, session?.user._id ? session?.user._id.toString() : null)
     // removing warning 
     const data = JSON.parse(JSON.stringify(req))
 

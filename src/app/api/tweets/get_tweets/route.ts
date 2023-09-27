@@ -2,7 +2,7 @@ export const dynamic = "force-dynamic";
 import { url_parse } from "@/lib/helpers";
 import clientPromise from "@/lib/mongodb";
 import { FullLikeData } from "@/lib/types/like";
-import { FullTweetData } from "@/lib/types/tweets";
+import { FullTweetData, FullTweetDataForClient } from "@/lib/types/tweets";
 import { FullUserDocument } from "@/lib/types/user";
 import { ObjectId } from "mongodb";
 import { NextApiResponse } from "next";
@@ -61,11 +61,18 @@ export async function GET(req:Request,res:NextApiResponse) {
 
         const only_tweets_ids:string[] = [...liked_tweets.map(t => t.parentTweet)]
 
+        const updated_tweets_array = tweets.map((obj) => {
+          if (only_tweets_ids.includes(obj._id.toString())) {
+            return { ...obj, isUserLiked: true };
+          } else {
+            return obj;
+          }
+        });
+
         return NextResponse.json({
             ok:true,
             data: {
-                tweets:tweets as FullTweetData[],
-                liked_tweets:only_tweets_ids as string[]
+              tweets:updated_tweets_array as unknown as FullTweetDataForClient[]
             }
         });
 
