@@ -1,6 +1,6 @@
 import {DefaultHeader} from "@/components/common/HeaderOnPage";
 import { ProfileImage } from "@/components/common/ProfileImageCircle";
-import { connectToDatabase } from "@/lib/mongodb";
+import clientPromise  from "@/lib/mongodb";
 import { FullUserDocument } from "@/lib/types/user";
 import styles from './index.module.scss';
 import OptionsCircle from "@/components/Pages/Profile/OptionsCircle";
@@ -8,7 +8,9 @@ import {StyledButtonWhite} from "@/components/common/StyledButton";
 
 async function get_user_data(username:string) {
     try {
-        const db = await connectToDatabase();
+        const client = await clientPromise;
+        const db = client.db(process.env.DATABASE_NAME)
+        
         const user = await db.collection<FullUserDocument>('users').findOne({username})
 
         return user
