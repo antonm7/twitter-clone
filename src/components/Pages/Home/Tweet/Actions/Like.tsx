@@ -3,7 +3,7 @@
 import { HeartIcon } from "@/components/common/Icons/Actions";
 import styles from './index.module.scss';
 import { Sizes } from "@/lib/types/common";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { post_like, post_unlike } from "@/lib/requests/actions";
 import { useTweetsListState } from "@/store/TweetsList";
 
@@ -17,8 +17,11 @@ type Props = {
 }
 
 export function Like({size, activeNumberOfLike,userId, parentTweet,likes,isUserLiked}:Props) {
-    const [isLiked,setIsLiked] = useState<boolean>(isUserLiked)
-    const [likesCount, setLikesCount] = useState<number>(likes)
+    const getIsUserLiked = useTweetsListState(state => state.getIsUserLiked)
+    const getLikesLength = useTweetsListState(state => state.getLikesLength)
+
+    const [isLiked,setIsLiked] = useState<boolean>(getIsUserLiked(parentTweet.toString()) || isUserLiked)
+    const [likesCount, setLikesCount] = useState<number>(getLikesLength(parentTweet.toString()) || likes)
     const updateLikes = useTweetsListState(state => state.updateLikes)
 
     const handle_like_action = async (e:React.MouseEvent) => {
@@ -53,7 +56,8 @@ export function Like({size, activeNumberOfLike,userId, parentTweet,likes,isUserL
             className={`cursor-pointer flex items-center`}
         >
             <HeartIcon size={size} id={styles.like} full={isLiked}/>
-            {activeNumberOfLike && likesCount ? <span className={`sub_text text-sm pl-3`}>{likesCount}</span> : null}
+            {likesCount.toString()}
+            {/* {activeNumberOfLike && likesCount ? <span className={`sub_text text-sm pl-3`}>{likesCount}</span> : null} */}
         </div>
     )
 }

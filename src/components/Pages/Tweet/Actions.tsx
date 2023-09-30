@@ -10,9 +10,10 @@ type Props = {
     tweetData:FullTweetData
     userSession:Session | null
     isUserLiked:boolean
+    likes:number
 }
 
-export function Actions({tweetData,userSession,isUserLiked}:Props) {
+export function Actions({tweetData,userSession,isUserLiked,likes}:Props) {
     return (
         <div>
             <div className="flex items-center justify-between">
@@ -22,7 +23,7 @@ export function Actions({tweetData,userSession,isUserLiked}:Props) {
                     size="lg" 
                     parentTweet={tweetData._id.toString()} 
                     userId={userSession ? userSession.user._id : ''}
-                    likes={0}
+                    likes={likes}
                     isUserLiked={isUserLiked}/>
                 <Bookmark size="lg"/>
                 <Share size="lg"/>

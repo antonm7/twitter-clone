@@ -11,6 +11,7 @@ import { ObjectId } from "mongodb";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { FullLikeData } from "@/lib/types/like";
+import { ForceRefresh } from "@/components/common/ForceRefresh";
 
 type ReturnBody = {
     tweet_data:FullTweetData
@@ -26,7 +27,7 @@ async function get_tweet_data(id:string,userId:string | null):Promise<ReturnBody
         .findOne({_id:new ObjectId(id)})
 
         let user_liked:boolean = false
-        console.log('userId:',userId)
+
         if(userId) {
             const is_user_liked = await db.collection<FullLikeData>('likes').findOne({
                 userId,
@@ -36,7 +37,9 @@ async function get_tweet_data(id:string,userId:string | null):Promise<ReturnBody
                 user_liked = true
             }
         }
+        
         return {tweet_data:tweet as unknown as FullTweetData ,user_liked}
+
     } catch(e) {
         return null
     }
@@ -48,12 +51,12 @@ type PageProps = {
     }
 }
 
-export default async function TweetPage({params}:PageProps) {
+export default async function Page({params}:PageProps) {
     const session = await getServerSession(authOptions)
     const req = await get_tweet_data(params.id, session?.user._id ? session?.user._id.toString() : null)
-    // removing warning 
+ 
     const data = JSON.parse(JSON.stringify(req))
-
+    console.log('newdata:',data.user_liked)
     if(!data?.tweet_data) return (
         <>
             <DefaultHeader title="Tweet"/>
@@ -65,6 +68,7 @@ export default async function TweetPage({params}:PageProps) {
 
     return (
         <>  
+            <ForceRefresh />
             <DefaultHeader title="Tweet"/>
             <div className="px-4">
                 <div className="flex items-center">
@@ -92,7 +96,12 @@ export default async function TweetPage({params}:PageProps) {
                     bookmarks={0} 
                 />
                 <Hr style={{marginTop:'1rem',marginBottom:'0.1rem'}}/>
-                <Actions isUserLiked={data.user_liked} userSession={session} tweetData={data.tweet_data}/>
+                <Actions
+                    isUserLiked={data.user_liked}
+                    userSession={session} 
+                    tweetData={data.tweet_data}
+                    likes={data.tweet_data.likes}
+                />
                 <Hr style={{marginTop:'0.1rem'}}/>
             </div>
             <Reply tweetData={data.tweet_data}/>

@@ -15,15 +15,11 @@ type Props = {
 }
 
 export default function TweetSection({authenticated,userData}:Props) {
-    const [likedTweets, setLikedTweets] = useState<string[]>([])
     const tweetsListStore = useTweetsListState(state => state)
     const [loading, setLoading] = useState<boolean>(Object.keys(tweetsListStore.list).length ? false : true)
 
     const [parent] = useAutoAnimate()
-// TODO:waht i want to do is to set when liked, to the local object of the tweet, so
-// need to update zostand store to accept change like thjat
-// Or figure out why this component re-renders each page visit..maybe its not evet and problem...maybe
-// thats the lgtm way of react.
+
     useEffect(() => {
         async function get_tweets_handle() {
             const req = await get_tweets(authenticated ? userData?._id.toString()! : null)

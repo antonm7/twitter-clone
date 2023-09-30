@@ -12,9 +12,11 @@ type State = {
   insertTweet: (comment: FullTweetData) => void;
   removeTweet: (id: string) => void;
   updateLikes:(tweetId:string,method:'inc' | 'dec') => void
+  getIsUserLiked:(tweetId:string) => boolean
+  getLikesLength:(tweetId:string) => number
 };
 
-export const useTweetsListState = create<State>((set) => ({
+export const useTweetsListState = create<State>((set,get) => ({
   list: {},
   clearList: () => set({ list: {} }),
   setList: (list: FullTweetData[]) => {
@@ -44,13 +46,16 @@ export const useTweetsListState = create<State>((set) => ({
       const updatedList = { ...state.list };
       if(method === 'dec') {
         updatedList[id].likes -= 1
-        updatedList[id].isUserLiked = true
+        updatedList[id].isUserLiked = false
       } else {
         updatedList[id].likes += 1
-        updatedList[id].isUserLiked = false
+        updatedList[id].isUserLiked = true
       }
        return { list: updatedList };
     });
   },
+  getIsUserLiked:(tweetId:string) => get().list[tweetId]?.isUserLiked || false,
+  getLikesLength:(tweetId:string) => get().list[tweetId]?.likes || 0
 }));
+
 
