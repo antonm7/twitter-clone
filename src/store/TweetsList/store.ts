@@ -47,7 +47,7 @@ export const useTweetsListState = create<State>((set,get) => ({
       if(method === 'dec') {
         updatedList[id].likes -= 1
         updatedList[id].isUserLiked = false
-      } else {
+      } else if(method === 'inc') {
         updatedList[id].likes += 1
         updatedList[id].isUserLiked = true
       }

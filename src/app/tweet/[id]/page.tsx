@@ -54,9 +54,8 @@ type PageProps = {
 export default async function Page({params}:PageProps) {
     const session = await getServerSession(authOptions)
     const req = await get_tweet_data(params.id, session?.user._id ? session?.user._id.toString() : null)
- 
     const data = JSON.parse(JSON.stringify(req))
-    console.log('newdata:',data.user_liked)
+
     if(!data?.tweet_data) return (
         <>
             <DefaultHeader title="Tweet"/>

@@ -20,9 +20,13 @@ export function Like({size, activeNumberOfLike,userId, parentTweet,likes,isUserL
     const getIsUserLiked = useTweetsListState(state => state.getIsUserLiked)
     const getLikesLength = useTweetsListState(state => state.getLikesLength)
 
-    const [isLiked,setIsLiked] = useState<boolean>(getIsUserLiked(parentTweet.toString()) || isUserLiked)
+    const [isLiked,setIsLiked] = useState<boolean>(getIsUserLiked(parentTweet.toString()))
     const [likesCount, setLikesCount] = useState<number>(getLikesLength(parentTweet.toString()) || likes)
     const updateLikes = useTweetsListState(state => state.updateLikes)
+
+    useEffect(() => {
+        setIsLiked(isUserLiked)
+    },[isUserLiked])
 
     const handle_like_action = async (e:React.MouseEvent) => {
         e.preventDefault()
@@ -53,10 +57,13 @@ export function Like({size, activeNumberOfLike,userId, parentTweet,likes,isUserL
         <div 
             onClick={(e) => isLiked ? handle_unlike_action(e) : handle_like_action(e)}  
             id={styles.like_container} 
-            className={`cursor-pointer flex items-center`}
-        >
-            <HeartIcon size={size} id={styles.like} full={isLiked}/>
-            {likesCount.toString()}
+            className={`cursor-pointer flex items-center`}>
+            {/* TODO:some weird bug, somtimes the isLiked state is braking, probably
+            because of the server/client components hirarchy.For now I keep this state updated 
+            with the useEffect, so it will run everytime, but its not the best ux, because user can see
+            the state changes live instead of rendering with the recent state */}
+            {isLiked ? <HeartIcon size={size} id={styles.like} full={true}/> :
+            <HeartIcon size={size} id={styles.like} full={false}/> }
             {/* {activeNumberOfLike && likesCount ? <span className={`sub_text text-sm pl-3`}>{likesCount}</span> : null} */}
         </div>
     )

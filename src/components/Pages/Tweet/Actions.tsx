@@ -1,3 +1,4 @@
+'use client';
 import { FullTweetData } from "@/lib/types/tweets"
 import { Bookmark } from "../Home/Tweet/Actions/Bookmark"
 import { Comments } from "../Home/Tweet/Actions/Comments"
