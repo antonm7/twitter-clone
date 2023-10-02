@@ -12,6 +12,7 @@ type State = {
   insertTweet: (comment: FullTweetData) => void;
   removeTweet: (id: string) => void;
   updateLikes:(tweetId:string,method:'inc' | 'dec') => void
+  updateRetweets:(tweetId:string,method:'inc' | 'dec') => void
   getIsUserLiked:(tweetId:string) => boolean
   getLikesLength:(tweetId:string) => number
 };
@@ -50,6 +51,19 @@ export const useTweetsListState = create<State>((set,get) => ({
       } else if(method === 'inc') {
         updatedList[id].likes += 1
         updatedList[id].isUserLiked = true
+      }
+       return { list: updatedList };
+    });
+  },
+  updateRetweets: (id, method) => {
+    set((state) => {
+      const updatedList = { ...state.list };
+      if(method === 'dec') {
+        updatedList[id].retweets -= 1
+        updatedList[id].isUserRetweeted = false
+      } else if(method === 'inc') {
+        updatedList[id].retweets += 1
+        updatedList[id].isUserRetweeted = true
       }
        return { list: updatedList };
     });

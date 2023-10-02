@@ -55,6 +55,7 @@ export type FullTweetDataForClient = {
     user_username:string;
     user_img:string;
     isUserLiked?:boolean;
+    isUserRetweeted?:boolean
 }
 
 export type InsertedComment = {

@@ -1,6 +1,7 @@
 import clientPromise from "@/lib/mongodb";
 import { InsertedLike } from "@/lib/types/like";
-import { FullCommentData } from "@/lib/types/tweets";
+import { InsertRetweetToDatabase } from "@/lib/types/retweet";
+import { FullCommentData, FullTweetData } from "@/lib/types/tweets";
 import { FullUserDocument } from "@/lib/types/user";
 import { ObjectId } from "mongodb";
 import { NextResponse } from "next/server";
@@ -26,31 +27,25 @@ export async function POST(req:Request) {
 
         const {userId, parentTweet} = validate_body.data
       
-        const like = () => db.collection<InsertedLike>('likes').insertOne({
+        const retweet = await db.collection<InsertRetweetToDatabase>('retweets').insertOne({
             userId,
             parentTweet
         })
 
-        const updateTweetLikes = () => db.collection<FullCommentData>('tweets').updateOne({
+        const updateUser = () => db.collection<FullUserDocument>('users').updateOne({
             _id:new ObjectId(parentTweet)
-        }, {$inc:{likes:1}})
+        }, {$push:{retweets:retweet.insertedId.toString()}})
 
-        const update_user = () => db.collection<FullUserDocument>('users').updateMany({
-            _id:new ObjectId(userId)
-        }, {$push:{likes:parentTweet}})
+        const updateTweet = () => db.collection<FullTweetData>('tweets').updateOne({
+            _id:new ObjectId(parentTweet)
+        },{$inc:{retweets:1}})
 
-        const like_methods = await Promise.allSettled([
-            like(),
-            updateTweetLikes(),
-            update_user()
+        await Promise.allSettled([
+            updateUser(),
+            updateTweet()
         ]) as unknown as {status:'fullfiled' | 'rejected',value:{insertedId:ObjectId}}[]
 
-        console.log(like_methods)
-
-        return NextResponse.json({
-            ok:true,
-            likeId:like_methods[0].value.insertedId.toString()
-        })
+        return NextResponse.json({ok:true})
 
     } catch(e) {
         console.log('error on inserting like_tweet',e)
