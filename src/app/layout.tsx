@@ -38,7 +38,7 @@ export default async function RootLayout({
                 <Menu />
                 </>
               }
-          <div className='max-w-[650px] min-w-[650px] w-full border_right min-h-screen h-auto'>
+          <div className='border_left border_right max-w-[650px] min-w-[650px] w-full border_right min-h-screen h-auto'>
             {children}
           </div>
           <div className='max-w-sm w-full pl-2 mt-2 pr-16 min-h-full'>
