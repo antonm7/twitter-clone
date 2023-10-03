@@ -26,18 +26,18 @@ export async function POST(req:Request) {
 
         const {userId, parentTweet} = validate_body.data
       
-        await db.collection<InsertRetweetToDatabase>('retweets').insertOne({
+        await db.collection<InsertRetweetToDatabase>('retweets').deleteOne({
             userId,
             parentTweet
         })
 
         const updateUser = () => db.collection<FullUserDocument>('users').updateOne({
             _id:new ObjectId(userId)
-        }, {$push:{retweets:parentTweet}})
+        }, {$pull:{retweets:parentTweet}})
 
         const updateTweet = () => db.collection<FullTweetData>('tweets').updateOne({
             _id:new ObjectId(parentTweet)
-        },{$inc:{retweets:1}})
+        },{$inc:{retweets:-1}})
 
         await Promise.allSettled([
             updateUser(),

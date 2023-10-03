@@ -1,6 +1,5 @@
 'use client';
-
-import { useHiddenLayerChangeVisibility, useHiddenLayerVisibility } from "@/store/HiddenLayer";
+import { useHiddenLayerStore } from "@/store/HiddenLayer";
 import React, { useCallback, useEffect } from "react";
 
 type Props = {
@@ -12,8 +11,8 @@ type Props = {
 }
 
 const WrapperComponent = ({ children, onActive, className, bg, closeable }: Props) => {
-  const visibility = useHiddenLayerVisibility(); // Use selector function
-  const changeVisibility = useHiddenLayerChangeVisibility(); // Use selector function
+  const visibility = useHiddenLayerStore(state => state.visibility);
+  const changeVisibility = useHiddenLayerStore(state => state.changeVisibility);
 
   const onActiveCallback = useCallback(onActive, [onActive]); // Wrap with useCallback
   const changeVisibilityCallback = useCallback(changeVisibility, [changeVisibility]); // Wrap with useCallback

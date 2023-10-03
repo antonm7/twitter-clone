@@ -33,6 +33,7 @@ export function FullComment({commentData,likedComments}:Props) {
                         <p>{commentData.text}</p>
                     </div>
                     <BottomBar 
+                        isComment
                         size="sm"
                         tweetData={{
                             _id: commentData._id.toString(),

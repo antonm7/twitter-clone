@@ -1,8 +1,7 @@
 export const dynamic = "force-dynamic";
 import { url_parse } from "@/lib/helpers";
 import clientPromise from "@/lib/mongodb";
-import { FullLikeData } from "@/lib/types/like";
-import { FullTweetData, FullTweetDataForClient } from "@/lib/types/tweets";
+import { FullTweetDataForClient } from "@/lib/types/tweets";
 import { FullUserDocument } from "@/lib/types/user";
 import { ObjectId } from "mongodb";
 import { NextApiResponse } from "next";
@@ -17,7 +16,6 @@ interface Values {
 
 export async function GET(req:Request,res:NextApiResponse) {
   try {
-      
       const parsed = url_parse(req.url as string)
 
       const userId = parsed.userId as string

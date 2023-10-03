@@ -18,6 +18,7 @@ type Props = {
     chart:number
     share:number
     isUserLiked:boolean
+    isComment?:boolean
 }
 
 export function BottomBar(props:Props) {
@@ -28,6 +29,7 @@ export function BottomBar(props:Props) {
             <Comments size={props.size} tweetData={props.tweetData}/>
             <Retweet activeNumberOfRetweets retweets={props.retweet_length} size={props.size}/>
             <Like 
+                isComment={props.isComment}
                 isUserLiked={props.isUserLiked}
                 activeNumberOfLike
                 likes={props.likes_length}

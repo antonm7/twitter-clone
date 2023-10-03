@@ -1,21 +1,20 @@
 'use client'
-import { useHiddenLayerBackground, useHiddenLayerChangeVisibility, useHiddenLayerVisibility } from '@/store/HiddenLayer';
+import { useHiddenLayerStore } from '@/store/HiddenLayer';
+import { useRegisterWindowState } from '@/store/registerWindow';
 import { MouseEventHandler, useRef } from 'react';
-import { useRegisterWindowChangeLoginVisibility, useRegisterWindowChangeSignupVisibility, 
-    useRegisterWindowLoginVisibility, useRegisterWindowState } from '@/store/registerWindow';
 import React from 'react';
 
 function HiddenLayer() {
     const componentRef = useRef<any>(null)
     
-    const visibility = useHiddenLayerVisibility()
-    const background = useHiddenLayerBackground()
-    const changeVisibility = useHiddenLayerChangeVisibility()
+    const visibility = useHiddenLayerStore(state => state.visibility)
+    const background = useHiddenLayerStore(state => state.background)
+    const changeVisibility = useHiddenLayerStore(state => state.changeVisibility)
 
-    const loginVisibility = useRegisterWindowLoginVisibility()
+    const loginVisibility = useRegisterWindowState(state => state.loginVisibility)
     const signupVisibility = useRegisterWindowState(state => state.signupVisibility)
-    const changeLoginVisibility = useRegisterWindowChangeLoginVisibility()
-    const changeSignupVisibility = useRegisterWindowChangeSignupVisibility()
+    const changeLoginVisibility = useRegisterWindowState(state => state.changeLoginVisibility)
+    const changeSignupVisibility = useRegisterWindowState(state => state.changeSignupVisibility)
 
     // Function to identify when click event happens outside
     // of the div element.
@@ -45,3 +44,5 @@ function HiddenLayer() {
 }
 
 export default React.memo(HiddenLayer)
+
+
