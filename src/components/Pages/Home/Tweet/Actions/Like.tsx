@@ -29,10 +29,10 @@ export function Like({
     const getLikesLength = useTweetsListState(state => state.getLikesLength)
 
     const [isLiked,setIsLiked] = useState<boolean>(
-        isComment ? isUserLiked : getIsUserLiked(parentTweet.toString())
+        isComment ? isUserLiked : getIsUserLiked(parentTweet)
     )
     const [likesCount, setLikesCount] = useState<number>(
-        isComment ? likes : getLikesLength(parentTweet.toString()) || likes)
+        isComment ? likes : getLikesLength(parentTweet) || likes)
     
     const updateLikes = useTweetsListState(state => state.updateLikes)
 
@@ -75,8 +75,7 @@ export function Like({
             because of the server/client components hirarchy.For now I keep this state updated 
             with the useEffect, so it will run everytime, but its not the best ux, because user can see
             the state changes live instead of rendering with the recent state */}
-            {isLiked ? <HeartIcon size={size} id={styles.like} full={true}/> :
-            <HeartIcon size={size} id={styles.like} full={false}/> }
+            <HeartIcon size={size} id={styles.like} full={isLiked}/> 
             {/* {activeNumberOfLike && likesCount ? <span className={`sub_text text-sm pl-3`}>{likesCount}</span> : null} */}
         </div>
     )
