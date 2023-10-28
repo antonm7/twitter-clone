@@ -15,6 +15,8 @@ type State = {
   updateRetweets:(tweetId:string,method:'inc' | 'dec') => void
   getIsUserLiked:(tweetId:string) => boolean
   getLikesLength:(tweetId:string) => number
+  getIsUserRetweeted:(tweetId:string) => boolean
+  getRetweetsLength:(tweetId:string) => number
 };
 
 export const useTweetsListState = create<State>((set,get) => ({
@@ -69,7 +71,9 @@ export const useTweetsListState = create<State>((set,get) => ({
     });
   },
   getIsUserLiked:(tweetId:string) => get().list[tweetId]?.isUserLiked || false,
-  getLikesLength:(tweetId:string) => get().list[tweetId]?.likes || 0
+  getLikesLength:(tweetId:string) => get().list[tweetId]?.likes || 0,
+  getIsUserRetweeted:(tweetId:string) => get().list[tweetId]?.isUserRetweeted || false,
+  getRetweetsLength:(tweetId:string) => get().list[tweetId]?.retweets || 0 
 }));
 
 

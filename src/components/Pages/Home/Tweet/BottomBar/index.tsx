@@ -27,7 +27,14 @@ export function BottomBar(props:Props) {
     return (
         <div className="flex justify-between items-center pt-4 max-w-[80%]">
             <Comments size={props.size} tweetData={props.tweetData}/>
-            <Retweet activeNumberOfRetweets retweets={props.retweet_length} size={props.size}/>
+            <Retweet 
+                isComment={props.isComment}
+                activeNumberOfRetweets 
+                retweets={props.retweet_length} 
+                size={props.size} 
+                parentTweet={props.tweetData._id.toString()} 
+                userId={session.data?.user._id || ''}
+                isUserRetweeted={false}/>
             <Like 
                 isComment={props.isComment}
                 isUserLiked={props.isUserLiked}

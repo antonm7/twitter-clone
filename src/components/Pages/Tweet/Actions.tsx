@@ -16,19 +16,22 @@ type Props = {
 
 export function Actions({tweetData,userSession,isUserLiked,likes}:Props) {
     return (
-        <div>
-            <div className="flex items-center justify-between">
-                <Comments size="lg" tweetData={tweetData} />
-                <Retweet size="lg" retweets={tweetData.retweets}/>
-                <Like 
-                    size="lg" 
-                    parentTweet={tweetData._id.toString()} 
-                    userId={userSession ? userSession.user._id : ''}
-                    likes={likes}
-                    isUserLiked={isUserLiked}/>
-                <Bookmark size="lg"/>
-                <Share size="lg"/>
-            </div>
+        <div className="flex items-center justify-between">
+            <Comments size="lg" tweetData={tweetData} />
+            <Retweet 
+                size="lg"
+                retweets={tweetData.retweets} 
+                parentTweet={tweetData._id.toString()} 
+                userId={userSession ? userSession.user._id : ''} 
+                isUserRetweeted={false}            />
+            <Like 
+                size="lg" 
+                parentTweet={tweetData._id.toString()} 
+                userId={userSession ? userSession.user._id : ''}
+                likes={likes}
+                isUserLiked={isUserLiked}/>
+            <Bookmark size="lg"/>
+            <Share size="lg"/>
         </div>
     )
 }
