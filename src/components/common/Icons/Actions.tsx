@@ -19,7 +19,8 @@ export function Chat({id,size}:Props) {
     ) 
 }
 
-export function RetweetIcon({id,size}:Props) {
+export function RetweetIcon({id,size,full}:Props) {
+    // TODO:ACTIVE FULL FUNCTIONALITY
     return (
         <div id={id} className={`${size === 'sm' ? 'h-9 w-9' : 'h-10 w-10'} flex items-center justify-center rounded-full`}>
             <FaRetweet className={`${size === 'sm' ? 'text-lg' : 'text-2xl'} sub_text`}/>
